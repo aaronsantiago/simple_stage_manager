@@ -3,10 +3,8 @@ import { uuidv4 } from "./utils";
 function createPanel(gun) {
   let id = uuidv4();
   let data = {
-    type: "youtube",
-    title: "New Youtube Effect",
-    url: "",
-    hidden: false,
+    type: "fade",
+    title: "New Fade Effect",
     key: id,
     deleted: false,
   };
@@ -19,28 +17,23 @@ function activateEffect(gun, data) {
     .get("activefx")
     .get("activefx" + data.key)
     .put({
-      type: "youtube",
-      stopped: false,
-      startTime: Date.now(),
+      type: "fade",
       key: data.key,
-      uiRef: uiRef,
       deleted: false,
       title: data.title,
-      url: data.url,
-      hidden: data.hidden
     });
 }
 
 function stopEffect(gun) {
   gun
-    .get("stopped")
+    .get("deleted")
     .put(true);
 }
 
-let Youtube = {
+let Fade = {
   createPanel,
   activateEffect,
   stopEffect,
 };
 
-export default Youtube;
+export default Fade;

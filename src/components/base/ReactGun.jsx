@@ -6,19 +6,26 @@ class ReactGun extends React.Component {
     this.gunBase = props.gun;
     this.state = { gunData: {} };
     this._gunListener = null;
+    this._unmounted = false;
   }
 
   componentDidMount() {
     this.gunBase.on((property, _, __, ev) => {
       this._gunListener = ev;
-      this.setState({
-        gunData: property,
-      });
+      if (this._unmounted) {
+        this._gunListener.off();
+      }
+      else {
+        this.setState({
+          gunData: property,
+        });
+      }
     });
   }
 
   componentWillUnmount() {
-    this._gunListener.off();
+    this._unmounted = true;
+    this._gunListener?.off();
   }
 }
 

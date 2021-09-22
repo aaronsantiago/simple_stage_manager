@@ -3,8 +3,8 @@ import { uuidv4 } from "./utils";
 function createPanel(gun) {
   let id = uuidv4();
   let data = {
-    type: "youtube",
-    title: "New Youtube Effect",
+    type: "overlay",
+    title: "New Overlay Effect",
     url: "",
     hidden: false,
     key: id,
@@ -19,9 +19,7 @@ function activateEffect(gun, data) {
     .get("activefx")
     .get("activefx" + data.key)
     .put({
-      type: "youtube",
-      stopped: false,
-      startTime: Date.now(),
+      type: "overlay",
       key: data.key,
       uiRef: uiRef,
       deleted: false,
@@ -33,14 +31,14 @@ function activateEffect(gun, data) {
 
 function stopEffect(gun) {
   gun
-    .get("stopped")
+    .get("deleted")
     .put(true);
 }
 
-let Youtube = {
+let URLOverlay = {
   createPanel,
   activateEffect,
   stopEffect,
 };
 
-export default Youtube;
+export default URLOverlay;

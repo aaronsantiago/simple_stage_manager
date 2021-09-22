@@ -8,14 +8,14 @@ import {
 } from "react-router-dom";
 import Controller from "./pages/Controller";
 import Gun from "gun/gun";
+require('gun/lib/open.js')
 
 var gun = Gun({
   peers: [
-    "http://gun-manhattan.herokuapp.com/gun",
     "https://aarondotwork-gun-server.herokuapp.com/gun",
   ],
 });
-let gunBase = gun.get("simple_stagemanager");
+let gunBase = gun.get("simple_stage_manager");
 
 function App() {
   return (
