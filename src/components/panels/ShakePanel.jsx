@@ -33,11 +33,12 @@ class ShakePanel extends ReactGun {
   render() {
     if (!this.state.gunData) return null;
     return (
-      <Panel bg="orange.50" heading="Shake:">
+      <Panel bg="orange.50" heading="Shake:" position="relative" pb="10">
         <Box px={3} pb={2}>
           <GunInput
             mb={3}
             size="lg"
+            fontSize="1em"
             placeholder="Title"
             fontWeight="bold"
             gun={this.props.gun}
@@ -60,7 +61,7 @@ class ShakePanel extends ReactGun {
             />
           </VStack>
         </Box>
-        <ButtonGroup borderRadius="0" isAttached variant="outline" w="100%">
+        <ButtonGroup position="absolute" bottom="0" borderRadius="0" isAttached variant="outline" w="100%">
           <Button w="100%" borderRadius="0" onClick={this.activate}>
             Activate
           </Button>
