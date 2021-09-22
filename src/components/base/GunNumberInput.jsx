@@ -11,6 +11,17 @@ class GunNumberInput extends ReactGun {
     this.state.inputCache = "";
   }
 
+  currentlyFocused() {
+    return document.activeElement === this.inputRef.current;
+  }
+
+  componentDidUpdate() {
+    
+    if (this.currentlyFocused())
+      this.inputRef.current.selectionStart = this.inputRef.current.selectionEnd =
+        this.cursor;
+  }
+
   render() {
     if (this.state.gunData == null) return null;
     return (
@@ -33,6 +44,7 @@ class GunNumberInput extends ReactGun {
             })
           }
           onChange={(e) => {
+            this.cursor = e.target.selectionStart;
             this.state.inputCache = e.target.value;
             if (!isNaN(parseFloat(e.target.value)))
               this.props.gun
