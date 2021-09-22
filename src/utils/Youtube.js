@@ -9,6 +9,7 @@ function createPanel(gun) {
     hidden: false,
     key: id,
     deleted: false,
+    volume: 1
   };
   gun.get("ui").get(id).put(data, console.log);
 }

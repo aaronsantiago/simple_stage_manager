@@ -13,6 +13,7 @@ import GunInput from "../base/GunInput";
 import Panel from "../base/Panel";
 import GunNumberInput from "../base/GunNumberInput";
 import GunCheckbox from "../base/GunCheckbox";
+import GunSlider from "../base/GunSlider";
 
 class YoutubePanel extends ReactGun {
   constructor(props) {
@@ -60,10 +61,22 @@ class YoutubePanel extends ReactGun {
                 gunProperty="url"
               />
             </Box>
-            <GunCheckbox title="Hidden During Play" gun={this.props.gun} gunProperty="hidden"/>
+            <GunCheckbox
+              title="Hidden During Play"
+              gun={this.props.gun}
+              gunProperty="hidden"
+            />
+            <GunSlider title="Starting Volume" gun={this.props.gun} gunProperty="volume"></GunSlider>
           </VStack>
         </Box>
-        <ButtonGroup position="absolute" bottom="0" borderRadius="0" isAttached variant="outline" w="100%">
+        <ButtonGroup
+          position="absolute"
+          bottom="0"
+          borderRadius="0"
+          isAttached
+          variant="outline"
+          w="100%"
+        >
           <Button w="100%" borderRadius="0" onClick={this.play}>
             Play
           </Button>
