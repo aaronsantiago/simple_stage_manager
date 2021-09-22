@@ -8,6 +8,7 @@ class GunNumberInput extends ReactGun {
 
     this.state.test = false;
     this.inputRef = React.createRef();
+    this.state.inputCache = "";
   }
 
   render() {
@@ -16,19 +17,27 @@ class GunNumberInput extends ReactGun {
       <HStack w="100%" px={2} spacing={0.5}>
         <Text>{this.props.title}</Text>
         <Input
-        size="xs"
-          {...(document.activeElement === this.inputRef.current
-            ? {}
-            : { value: this.state.gunData[this.props.gunProperty] })}
+          size="xs"
+          value={
+            document.activeElement === this.inputRef.current
+              ? this.state.inputCache
+              : this.state.gunData[this.props.gunProperty]
+          }
           step={0.2}
           ref={this.inputRef}
           textAlign="right"
-          onFocus={() => this.setState({ test: !this.state.test })}
+          onFocus={() =>
+            this.setState({
+              test: !this.state.test,
+              inputCache: this.state.gunData[this.props.gunProperty],
+            })
+          }
           onChange={(e) => {
-            console.log(e.target.value);
-            this.props.gun
-              .get(this.props.gunProperty)
-              .put(parseFloat(e.target.value));
+            this.state.inputCache = e.target.value;
+            if (!isNaN(parseFloat(e.target.value)))
+              this.props.gun
+                .get(this.props.gunProperty)
+                .put(parseFloat(e.target.value));
           }}
         ></Input>
       </HStack>
