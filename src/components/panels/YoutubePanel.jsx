@@ -1,40 +1,22 @@
 import React from "react";
-import { map } from "lodash";
 import Youtube from "../../utils/Youtube";
+import ReactGun from "../base/ReactGun";
 
-class YoutubePanel extends React.Component {
+class YoutubePanel extends ReactGun {
   constructor(props) {
     super(props);
-    this.myGunBase = props.gun;
-    this.gunBase = props.gunBase;
-    this.state = { gunData: {} };
-    this.gunListeners = {};
+    this.rootGunBase = props.gunBase;
 
     this.play = this.play.bind(this);
     this.deleteMe = this.deleteMe.bind(this);
   }
 
-  componentDidMount() {
-    this.myGunBase.on((property, key, _, ev) => {
-      this.gunListeners["gunData"] = ev;
-      this.setState({
-        gunData: property,
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    map(this.gunListeners, (listener) => {
-      listener.off();
-    });
-  }
-
   play() {
-    Youtube.activateEffect(this.gunBase, this.state.gunData);
+    Youtube.activateEffect(this.rootGunBase, this.state.gunData);
   }
 
   deleteMe() {
-    this.myGunBase.put(null);
+    this.gunBase.put(null);
   }
 
   render() {

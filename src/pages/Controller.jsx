@@ -45,8 +45,8 @@ class Controller extends React.Component {
             return <button key={i} onClick={el[1]}> {el[0]} </button>
           })}
         </div>
-        <UIPanels gun={gunBase}></UIPanels>
-        <ActiveEffects gun={gunBase}></ActiveEffects>
+        <UIPanels gun={gunBase.get("ui")} gunBase={gunBase}></UIPanels>
+        <ActiveEffects gun={gunBase.get("activefx")}></ActiveEffects>
       </>
     );
   }

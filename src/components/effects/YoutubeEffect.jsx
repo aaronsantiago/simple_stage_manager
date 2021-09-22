@@ -1,34 +1,16 @@
 import React from "react";
-import { map } from "lodash";
 import Youtube from "../../utils/Youtube";
+import ReactGun from "../base/ReactGun";
 
-class YoutubeEffect extends React.Component {
+class YoutubeEffect extends ReactGun {
   constructor(props) {
     super(props);
-    this.myGunBase = props.gun;
-    this.state = { gunData: {} };
-    this.gunListeners = {};
 
     this.stop = this.stop.bind(this);
   }
 
-  componentDidMount() {
-    this.myGunBase.on((property, key, _, ev) => {
-      this.gunListeners["gunData"] = ev;
-      this.setState({
-        gunData: property,
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    map(this.gunListeners, (listener) => {
-      listener.off();
-    });
-  }
-
   stop() {
-    Youtube.stopEffect(this.myGunBase);
+    Youtube.stopEffect(this.gunBase);
   }
 
   render() {
