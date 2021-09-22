@@ -7,6 +7,15 @@ import {
   Link
 } from "react-router-dom";
 import Controller from "./pages/Controller";
+import Gun from "gun/gun";
+
+var gun = Gun({
+  peers: [
+    "http://gun-manhattan.herokuapp.com/gun",
+    "https://aarondotwork-gun-server.herokuapp.com/gun",
+  ],
+});
+let gunBase = gun.get("simple_stagemanager");
 
 function App() {
   return (
@@ -23,19 +32,11 @@ function App() {
             <Link to="/dashboard">Dashboard</Link>
           </li>
         </ul>
-
         <hr />
-
-        {/*
-          A <Switch> looks through all its children <Route>
-          elements and renders the first one whose path
-          matches the current URL. Use a <Switch> any time
-          you have multiple routes, but you want only one
-          of them to render at a time
-        */}
+        
         <Switch>
           <Route exact path="/">
-            <Controller />
+            <Controller gun={gunBase} />
           </Route>
           {/* <Route path="/about">
             <About />
