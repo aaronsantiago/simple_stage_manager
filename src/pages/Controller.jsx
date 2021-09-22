@@ -6,6 +6,7 @@ import URLOverlay from "../utils/URLOverlay";
 import Fade from "../utils/Fade";
 import Shake from "../utils/Shake";
 import HideMiroControls from "../utils/HideMiroControls";
+import {Box, Heading} from "@chakra-ui/react"
 
 class Controller extends React.Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class Controller extends React.Component {
   render() {
     return (
       <>
-        <div>
-          <h2>Create new panel</h2>
+        <Box>
+          <Heading>Create new panel</Heading>
           {[
             ["Youtube", () => {Youtube.createPanel(this.gunBase)}],
             ["Fade", () => {Fade.createPanel(this.gunBase)}],
@@ -27,7 +28,7 @@ class Controller extends React.Component {
             ["URL"]].map((el, i) => {
             return <button key={i} onClick={el[1]}> {el[0]} </button>
           })}
-        </div>
+        </Box>
         <UIPanels gun={this.gunBase.get("ui")} gunBase={this.gunBase}></UIPanels>
         <ActiveEffects gun={this.gunBase.get("activefx")}></ActiveEffects>
       </>

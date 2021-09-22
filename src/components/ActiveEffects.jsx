@@ -6,12 +6,19 @@ import URLOverlayEffect from "./effects/URLOverlayEffect";
 import FadeEffect from "./effects/FadeEffect";
 import ShakeEffect from "./effects/ShakeEffect";
 import HideMiroControlEffect from "./effects/HideMiroControlsEffect";
+import {Box, Heading, Grid} from "@chakra-ui/react"
 
 class ActiveEffects extends ReactGunMap {
   render() {
     return (
-      <div>
-        <h2>Active Effects</h2>
+      <Box>
+        <Heading>Active Effects</Heading>
+        <Grid
+          h="400px"
+          templateRows="repeat(2, 1fr)"
+          templateColumns="repeat(4, 1fr)"
+          gap={4}
+        >
         {map(this.state.gunData, (el, key) => {
           if (el === null || el.deleted === true) return;
           let defaultProps = { key: key, gun: this.gunBase.get(key) };
@@ -27,9 +34,10 @@ class ActiveEffects extends ReactGunMap {
             case "miro-hide":
               return <HideMiroControlEffect {...defaultProps} />;
           }
-          return <div key={key}> {el.title}</div>;
+          return null;
         })}
-      </div>
+        </Grid>
+      </Box>
     );
   }
 }

@@ -6,6 +6,7 @@ import URLOverlayPanel from "./panels/URLOverlayPanel";
 import FadePanel from "./panels/FadePanel";
 import ShakePanel from "./panels/ShakePanel";
 import HideMiroControlsPanel from "./panels/HideMiroControlsPanel";
+import { Box, Heading, Grid } from "@chakra-ui/react";
 
 class UIPanels extends ReactGunMap {
   constructor(props) {
@@ -15,30 +16,34 @@ class UIPanels extends ReactGunMap {
 
   render() {
     return (
-      <div>
-        <h2>Available Panels</h2>
-        {map(this.state.gunData, (el, key) => {
-          if (el === null || el.deleted === true) return;
-          let defaultProps = {
-            key: key,
-            gun: this.gunBase.get(key),
-            gunBase: this.rootGunBase,
-          };
-          switch (el.type) {
-            case "youtube":
-              return <YoutubePanel {...defaultProps} />;
-            case "overlay":
-              return <URLOverlayPanel {...defaultProps} />;
-            case "fade":
-              return <FadePanel {...defaultProps} />;
-            case "shake":
-              return <ShakePanel {...defaultProps} />;
-            case "miro-hide":
-              return <HideMiroControlsPanel {...defaultProps} />;
-          }
-          return;
-        })}
-      </div>
+      <Box>
+        <Heading>Available Panels</Heading>
+        <Grid
+          templateColumns="repeat(4, 1fr)"
+          gap={4}>
+          {map(this.state.gunData, (el, key) => {
+            if (el === null || el.deleted === true) return;
+            let defaultProps = {
+              key: key,
+              gun: this.gunBase.get(key),
+              gunBase: this.rootGunBase,
+            };
+            switch (el.type) {
+              case "youtube":
+                return <YoutubePanel {...defaultProps} />;
+              case "overlay":
+                return <URLOverlayPanel {...defaultProps} />;
+              case "fade":
+                return <FadePanel {...defaultProps} />;
+              case "shake":
+                return <ShakePanel {...defaultProps} />;
+              case "miro-hide":
+                return <HideMiroControlsPanel {...defaultProps} />;
+            }
+            return;
+          })}
+        </Grid>
+      </Box>
     );
   }
 }

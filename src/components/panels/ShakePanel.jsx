@@ -1,10 +1,21 @@
 import React from "react";
 import Shake from "../../utils/Shake";
 import ReactGun from "../base/ReactGun";
+import {
+  Box,
+  ButtonGroup,
+  Button,
+  StackDivider,
+  VStack,
+} from "@chakra-ui/react";
+import GunInput from "../base/GunInput";
+import Panel from "../base/Panel";
+import GunNumberInput from "../base/GunNumberInput";
 
 class ShakePanel extends ReactGun {
   constructor(props) {
     super(props);
+
     this.rootGunBase = props.gunBase;
 
     this.activate = this.activate.bind(this);
@@ -22,15 +33,42 @@ class ShakePanel extends ReactGun {
   render() {
     if (!this.state.gunData) return null;
     return (
-      <div>
-        <h3>Shake: {this.state.gunData.title}</h3>
-        <button onClick={this.activate}>
-          Activate
-        </button>
-        <button onClick={this.deleteMe}>
-          Delete
-        </button>
-      </div>
+      <Panel bg="orange.50" heading="Shake:">
+        <Box px={3} pb={2}>
+          <GunInput
+            mb={3}
+            size="lg"
+            placeholder="Title"
+            fontWeight="bold"
+            gun={this.props.gun}
+            gunProperty="title"
+          />
+          <VStack
+            spacing={1.5}
+            divider={<StackDivider borderColor="gray.200" />}
+            align="stretch"
+          >
+            <GunNumberInput
+              title="duration"
+              gun={this.props.gun}
+              gunProperty="duration"
+            />
+            <GunNumberInput
+              title="strength"
+              gun={this.props.gun}
+              gunProperty="strength"
+            />
+          </VStack>
+        </Box>
+        <ButtonGroup borderRadius="0" isAttached variant="outline" w="100%">
+          <Button w="100%" borderRadius="0" onClick={this.activate}>
+            Activate
+          </Button>
+          <Button w="100%" borderRadius="0" onClick={this.deleteMe}>
+            Delete
+          </Button>
+        </ButtonGroup>
+      </Panel>
     );
   }
 }
