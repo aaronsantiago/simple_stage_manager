@@ -14,7 +14,13 @@ class ActiveEffects extends ReactGunMap {
       <Box>
         <Heading>Active Effects</Heading>
         <Grid
-          templateColumns="repeat(4, 1fr)"
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+            xl: "repeat(5, 1fr)",
+          }}
           gap={4}
         >
         {map(this.state.gunData, (el, key) => {

@@ -35,21 +35,12 @@ function App() {
     <ChakraProvider theme={theme}>
       <Router>
         <div>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-          </ul>
-          <hr />
 
           <Switch>
-            <Route exact path="/">
+            <Route path="/controller/:room_id">
+              <Controller gun={gunBase} />
+            </Route>
+            <Route path="/controller">
               <Controller gun={gunBase} />
             </Route>
             {/* <Route path="/about">

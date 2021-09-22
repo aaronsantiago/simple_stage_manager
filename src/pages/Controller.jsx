@@ -6,34 +6,78 @@ import URLOverlay from "../utils/URLOverlay";
 import Fade from "../utils/Fade";
 import Shake from "../utils/Shake";
 import HideMiroControls from "../utils/HideMiroControls";
-import {Box, Heading} from "@chakra-ui/react"
+import {
+  Button,
+  Box,
+  Heading,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuList,
+  MenuItem,
+  ChevronDownIcon,
+} from "@chakra-ui/react";
+import { withRouter } from "react-router";
 
 class Controller extends React.Component {
   constructor(props) {
     super(props);
-    this.gunBase = props.gun;
+    this.roomId = this.props.match.params.room_id;
+    if (this.roomId == null) {
+      this.gunBase = props.gun;
+    }
+    else {
+      this.gunBase = props.gun.get(this.roomId);
+    }
   }
 
   render() {
     return (
       <>
         <Box>
-          <Heading>Create new panel</Heading>
-          {[
-            ["Youtube", () => {Youtube.createPanel(this.gunBase)}],
-            ["Fade", () => {Fade.createPanel(this.gunBase)}],
-            ["Shake", () => {Shake.createPanel(this.gunBase)}],
-            ["Hide Miro Controls", () => {HideMiroControls.createPanel(this.gunBase)}],
-            ["Overlay", () => {URLOverlay.createPanel(this.gunBase)}],
-            ["URL"]].map((el, i) => {
-            return <button key={i} onClick={el[1]}> {el[0]} </button>
-          })}
+          <Menu>
+            <Button variant="outline" p="0">
+              <MenuButton
+                w="100%"
+                h="100%"
+                p="4"
+                rightIcon={<ChevronDownIcon />}
+              >
+                Create new panel
+              </MenuButton>
+            </Button>
+            <MenuList>
+              <MenuItem
+                onClick={() => {
+                  Youtube.createPanel(this.gunBase);
+                }}
+              >
+                Youtube
+              </MenuItem>
+              <MenuItem onClick={() => {
+                URLOverlay.createPanel(this.gunBase);
+              }}>URL Overlay</MenuItem>
+              <MenuDivider />
+              <MenuItem onClick={() => {
+                Fade.createPanel(this.gunBase);
+              }}>Fade</MenuItem>
+              <MenuItem onClick={() => {
+                Shake.createPanel(this.gunBase);
+              }}>Shake</MenuItem>
+              <MenuItem onClick={() => {
+                HideMiroControls.createPanel(this.gunBase);
+              }}>Hide Miro Controls</MenuItem>
+            </MenuList>
+          </Menu>
         </Box>
-        <UIPanels gun={this.gunBase.get("ui")} gunBase={this.gunBase}></UIPanels>
+        <UIPanels
+          gun={this.gunBase.get("ui")}
+          gunBase={this.gunBase}
+        ></UIPanels>
         <ActiveEffects gun={this.gunBase.get("activefx")}></ActiveEffects>
       </>
     );
   }
 }
 
-export default Controller;
+export default withRouter(Controller);
