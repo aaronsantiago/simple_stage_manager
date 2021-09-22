@@ -6,7 +6,20 @@ class ShakeEffect extends ReactGun {
   constructor(props) {
     super(props);
 
+    this.state.time = new Date();
     this.stop = this.stop.bind(this);
+  }
+  componentDidMount() {
+    super.componentDidMount();
+    // create the interval once component is mounted
+    this.update = setInterval(() => {
+      this.setState({ time: new Date() });
+    }, 16); // every frame (ish)
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    clearInterval(this.update);
   }
 
   stop() {
@@ -19,10 +32,8 @@ class ShakeEffect extends ReactGun {
       Date.now() - 100 >
       this.state.gunData.startTime + this.state.gunData.duration * 1000
     ) {
-      console.log(Date.now() - this.state.gunData.startTime);
       return null;
     }
-    console.log(Date.now() - this.state.gunData.startTime);
     return (
       <div>
         <h3>Currently shaking: {this.state.gunData.title}</h3>

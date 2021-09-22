@@ -7,7 +7,7 @@ function createPanel(gun) {
     title: "New Shake Effect",
     key: id,
     deleted: false,
-    duration: 10,
+    duration: 1,
     strength: 1,
   };
   gun.get("ui").get(id).put(data, console.log);
