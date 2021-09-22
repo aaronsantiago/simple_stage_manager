@@ -1,7 +1,8 @@
 import React from "react";
 import Shake from "../../utils/Shake";
 import ReactGun from "../base/ReactGun";
-import { Box, Heading, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
+import Panel from "../base/Panel";
 
 class ShakeEffect extends ReactGun {
   constructor(props) {
@@ -35,15 +36,18 @@ class ShakeEffect extends ReactGun {
       return null;
     }
     return (
-      <Box p={3} shadow="md" borderWidth="1px">
-        <Heading as="h4" size="xs">
-          Currently shaking:
-        </Heading>
-        <Heading as="h5" size="sm">
-          {this.state.gunData.title}
-        </Heading>
-        <Button onClick={this.stop}>Stop</Button>
-      </Box>
+      <Panel bg="orange.100" heading={this.state.gunData.title} pb="10">
+        <Button
+          position="absolute"
+          bottom="0"
+          variant="outline"
+          w="100%"
+          borderRadius="0"
+          onClick={this.stop}
+        >
+          Deactivate
+        </Button>
+      </Panel>
     );
   }
 }

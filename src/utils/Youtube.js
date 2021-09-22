@@ -9,7 +9,7 @@ function createPanel(gun) {
     hidden: false,
     key: id,
     deleted: false,
-    volume: 1
+    volume: 1,
   };
   gun.get("ui").get(id).put(data, console.log);
 }
@@ -28,7 +28,8 @@ function activateEffect(gun, data) {
       deleted: false,
       title: data.title,
       url: data.url,
-      hidden: data.hidden
+      hidden: data.hidden,
+      volume: data.volume,
     });
 }
 

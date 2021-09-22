@@ -41,11 +41,16 @@ class FadePanel extends ReactGun {
             gunProperty="title"
           />
         </Box>
-        <ButtonGroup position="absolute" bottom="0" borderRadius="0" isAttached variant="outline" w="100%">
-          <Button w="100%" borderRadius="0" onClick={this.activate}>
+          <Button
+            position="absolute"
+            bottom="0"
+            variant="outline"
+            w="100%"
+            borderRadius="0"
+            onClick={this.activate}
+          >
             Activate
           </Button>
-        </ButtonGroup>
       </Panel>
     );
   }

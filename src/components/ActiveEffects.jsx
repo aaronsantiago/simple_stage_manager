@@ -14,8 +14,6 @@ class ActiveEffects extends ReactGunMap {
       <Box>
         <Heading>Active Effects</Heading>
         <Grid
-          h="400px"
-          templateRows="repeat(2, 1fr)"
           templateColumns="repeat(4, 1fr)"
           gap={4}
         >

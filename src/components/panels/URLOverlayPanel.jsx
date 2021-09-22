@@ -73,18 +73,16 @@ class URLOverlayPanel extends ReactGun {
               />
             </VStack>
           </Box>
-          <ButtonGroup
+          <Button
             position="absolute"
             bottom="0"
-            borderRadius="0"
-            isAttached
             variant="outline"
             w="100%"
+            borderRadius="0"
+            onClick={this.activate}
           >
-            <Button w="100%" borderRadius="0" onClick={this.activate}>
-              Activate
-            </Button>
-          </ButtonGroup>
+            Activate
+          </Button>
         </Panel>
       </GridItem>
     );

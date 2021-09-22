@@ -24,7 +24,7 @@ class GunSlider extends ReactGun {
   render() {
     if (this.state.gunData == null) return null;
     return (
-      <HStack px={2}>
+      <HStack px={2} w="100%">
         <Text w="100%">{this.props.title}</Text>
         <Slider
           ref={this.sliderRef}

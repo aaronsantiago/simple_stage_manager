@@ -28,7 +28,7 @@ const theme = extendTheme({
     "2xl": "0",
     "3xl": "0",
     full: "9999px",
-  },
+  }
 })
 function App() {
   return (

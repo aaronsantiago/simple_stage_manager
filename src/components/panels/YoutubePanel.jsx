@@ -36,7 +36,13 @@ class YoutubePanel extends ReactGun {
     if (!this.state.gunData) return null;
     return (
       <GridItem rowSpan={2} colSpan={1}>
-        <Panel onClose={this.deleteMe} bg="blue.50" heading="Youtube:" position="relative" pb="10">
+        <Panel
+          onClose={this.deleteMe}
+          bg="blue.50"
+          heading="Youtube:"
+          position="relative"
+          pb="10"
+        >
           <Box px={3} pb={2}>
             <GunInput
               mb={3}
@@ -74,18 +80,16 @@ class YoutubePanel extends ReactGun {
               ></GunSlider>
             </VStack>
           </Box>
-          <ButtonGroup
+          <Button
             position="absolute"
             bottom="0"
-            borderRadius="0"
-            isAttached
             variant="outline"
             w="100%"
+            borderRadius="0"
+            onClick={this.play}
           >
-            <Button w="100%" borderRadius="0" onClick={this.play}>
-              Play
-            </Button>
-          </ButtonGroup>
+            Play
+          </Button>
         </Panel>
       </GridItem>
     );

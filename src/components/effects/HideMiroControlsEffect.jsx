@@ -1,6 +1,8 @@
 import React from "react";
 import HideMiroControls from "../../utils/HideMiroControls";
 import ReactGun from "../base/ReactGun";
+import Panel from "../base/Panel";
+import { Button } from "@chakra-ui/button";
 
 class HideMiroControlsEffect extends ReactGun {
   constructor(props) {
@@ -15,10 +17,18 @@ class HideMiroControlsEffect extends ReactGun {
 
   render() {
     return (
-      <div>
-        <h3>Currently hiding Miro control: {this.state.gunData.title}</h3>
-        <button onClick={this.stop}>Stop</button>
-      </div>
+      <Panel bg="green.100" heading={this.state.gunData.title} pb="10">
+        <Button
+          position="absolute"
+          bottom="0"
+          variant="outline"
+          w="100%"
+          borderRadius="0"
+          onClick={this.stop}
+        >
+          Deactivate
+        </Button>
+      </Panel>
     );
   }
 }
