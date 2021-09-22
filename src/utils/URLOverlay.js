@@ -7,6 +7,7 @@ function createPanel(gun) {
     title: "New Overlay Effect",
     url: "",
     hidden: false,
+    clickthrough: false,
     key: id,
     deleted: false,
   };
@@ -25,6 +26,7 @@ function activateEffect(gun, data) {
       deleted: false,
       title: data.title,
       url: data.url,
+      clickthrough: data.clickthrough,
       hidden: data.hidden
     });
 }

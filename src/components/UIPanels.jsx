@@ -19,8 +19,15 @@ class UIPanels extends ReactGunMap {
       <Box>
         <Heading>Available Panels</Heading>
         <Grid
-          templateColumns="repeat(4, 1fr)"
-          gap={4}>
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+            xl: "repeat(5, 1fr)",
+          }}
+          gap={4}
+        >
           {map(this.state.gunData, (el, key) => {
             if (el === null || el.deleted === true) return;
             let defaultProps = {

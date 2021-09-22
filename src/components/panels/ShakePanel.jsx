@@ -7,6 +7,7 @@ import {
   Button,
   StackDivider,
   VStack,
+  GridItem,
 } from "@chakra-ui/react";
 import GunInput from "../base/GunInput";
 import Panel from "../base/Panel";
@@ -33,7 +34,8 @@ class ShakePanel extends ReactGun {
   render() {
     if (!this.state.gunData) return null;
     return (
-      <Panel bg="orange.50" heading="Shake:" position="relative" pb="10">
+      <GridItem rowSpan={2} colSpan={1}>
+      <Panel onClose={this.deleteMe} bg="orange.50" heading="Shake:" position="relative" pb="10">
         <Box px={3} pb={2}>
           <GunInput
             mb={3}
@@ -65,11 +67,9 @@ class ShakePanel extends ReactGun {
           <Button w="100%" borderRadius="0" onClick={this.activate}>
             Activate
           </Button>
-          <Button w="100%" borderRadius="0" onClick={this.deleteMe}>
-            Delete
-          </Button>
         </ButtonGroup>
       </Panel>
+      </GridItem>
     );
   }
 }

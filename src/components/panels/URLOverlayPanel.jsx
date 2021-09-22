@@ -1,6 +1,18 @@
 import React from "react";
 import URLOverlay from "../../utils/URLOverlay";
 import ReactGun from "../base/ReactGun";
+import {
+  Text,
+  Box,
+  ButtonGroup,
+  Button,
+  StackDivider,
+  VStack,
+  GridItem,
+} from "@chakra-ui/react";
+import GunInput from "../base/GunInput";
+import Panel from "../base/Panel";
+import GunCheckbox from "../base/GunCheckbox";
 
 class URLOverlayPanel extends ReactGun {
   constructor(props) {
@@ -22,15 +34,59 @@ class URLOverlayPanel extends ReactGun {
   render() {
     if (!this.state.gunData) return null;
     return (
-      <div>
-        <h3>Overlay: {this.state.gunData.title}</h3>
-        <button onClick={this.activate}>
-          Activate
-        </button>
-        <button onClick={this.deleteMe}>
-          Delete
-        </button>
-      </div>
+      <GridItem rowSpan={2} colSpan={1}>
+        <Panel onClose={this.deleteMe} bg="red.50" heading="URL Overlay:" position="relative" pb="10">
+          <Box px={3} pb={2}>
+            <GunInput
+              mb={3}
+              size="lg"
+              fontSize="1em"
+              overflow="wrap"
+              placeholder="Title"
+              fontWeight="bold"
+              gun={this.props.gun}
+              gunProperty="title"
+            />
+            <VStack
+              spacing={1.5}
+              divider={<StackDivider borderColor="gray.200" />}
+              align="stretch"
+            >
+              <Box>
+                <Text size="xs">Overlay URL</Text>
+                <GunInput
+                  title="url"
+                  size="xs"
+                  gun={this.props.gun}
+                  gunProperty="url"
+                />
+              </Box>
+              <GunCheckbox
+                title="Allow users to click through"
+                gun={this.props.gun}
+                gunProperty="clickthrough"
+              />
+              <GunCheckbox
+                title="Hidden while activated"
+                gun={this.props.gun}
+                gunProperty="hidden"
+              />
+            </VStack>
+          </Box>
+          <ButtonGroup
+            position="absolute"
+            bottom="0"
+            borderRadius="0"
+            isAttached
+            variant="outline"
+            w="100%"
+          >
+            <Button w="100%" borderRadius="0" onClick={this.activate}>
+              Activate
+            </Button>
+          </ButtonGroup>
+        </Panel>
+      </GridItem>
     );
   }
 }
