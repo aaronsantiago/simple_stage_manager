@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import Controller from "./pages/Controller";
 import Gun from "gun/gun";
+import { extendTheme } from "@chakra-ui/react"
 require("gun/lib/open.js");
 
 var gun = Gun({
@@ -11,9 +12,27 @@ var gun = Gun({
 });
 let gunBase = gun.get("simple_stage_manager");
 
+const theme = extendTheme({
+  colors: {
+    gray: {
+      200: "#111",
+    },
+  },
+  radii: {
+    none: "0",
+    sm: "0",
+    base: "0",
+    md: "0",
+    lg: "0",
+    xl: "0",
+    "2xl": "0",
+    "3xl": "0",
+    full: "9999px",
+  },
+})
 function App() {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Router>
         <div>
           <ul>

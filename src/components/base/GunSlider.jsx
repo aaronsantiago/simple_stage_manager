@@ -8,13 +8,17 @@ import {
   SliderThumb,
 } from "@chakra-ui/react";
 import ReactGun from "./ReactGun";
+import { throttle } from "lodash";
 
 class GunSlider extends ReactGun {
   constructor(props) {
     super(props);
 
     this.state.test = false;
-    this.inputRef = React.createRef();
+    this.sliderRef = React.createRef();
+    this.throttledGunUpdate = throttle((e) => {
+      this.props.gun.get(this.props.gunProperty).put(parseFloat(e));
+    }, 50);
   }
 
   render() {
@@ -23,26 +27,21 @@ class GunSlider extends ReactGun {
       <HStack px={2}>
         <Text w="100%">{this.props.title}</Text>
         <Slider
+          ref={this.sliderRef}
           min={0}
           max={1}
           step={0.01}
-          {...(document.activeElement === this.inputRef.current
-            ? {}
-            : { value: this.state.gunData[this.props.gunProperty] })}
+          value={this.state.gunData[this.props.gunProperty]}
+          focusThumbOnChange={false}
           onChange={(e) => {
-            this.props.gun
-              .get(this.props.gunProperty)
-              .put(parseFloat(e));
+            this.sliderRef.current.value = e;
+            this.throttledGunUpdate(e);
           }}
         >
-          <SliderTrack>
-            <SliderFilledTrack
-              onFocus={() => this.setState({ test: !this.state.test })}
-              onClick={() => this.setState({ test: !this.state.test })}
-              ref={this.inputRef}
-            />
+          <SliderTrack bg="gray.500">
+            <SliderFilledTrack/>
           </SliderTrack>
-          <SliderThumb />
+          <SliderThumb bg="gray.400" />
         </Slider>
       </HStack>
     );
