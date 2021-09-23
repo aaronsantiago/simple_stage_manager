@@ -1,3 +1,5 @@
+import { extendTheme } from "@chakra-ui/react"
+
 function uuidv4() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
         /[xy]/g,
@@ -9,4 +11,35 @@ function uuidv4() {
     );
 }
 
-export {uuidv4}
+const chakraTheme = extendTheme({
+  colors: {
+    gray: {
+      200: "#111",
+    },
+  },
+  radii: {
+    none: "0",
+    sm: "0",
+    base: "0",
+    md: "0",
+    lg: "0",
+    xl: "0",
+    "2xl": "0",
+    "3xl": "0",
+    full: "9999px",
+  },
+  components: {
+    Button: {
+      variants: {
+        outline: {
+          "borderLeft": 0,
+          "borderRight": 0,
+          "borderBottom": 0,
+          "backgroundColor": "#FFF7",
+        },
+      },
+    },
+  },
+});
+
+export {uuidv4, chakraTheme}

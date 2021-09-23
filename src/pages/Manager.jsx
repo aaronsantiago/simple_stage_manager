@@ -2,12 +2,14 @@ import React from "react";
 import UIPanels from "../components/UIPanels";
 import ActiveEffects from "../components/ActiveEffects";
 import {
-  Button,
+  Text,
   Box,
   Flex,
-  Spacer
+  VStack
 } from "@chakra-ui/react";
 import { withRouter } from "react-router";
+import Panel from "../components/base/Panel";
+import ViewerInfo from "../components/ViewerInfo";
 
 class Manager extends React.Component {
   constructor(props) {
@@ -33,7 +35,10 @@ class Manager extends React.Component {
                 gunBase={this.gunBase}
               ></UIPanels>
             </Box>
-            <ActiveEffects gun={this.gunBase.get("activefx")}></ActiveEffects>
+            <VStack h="100vh" spacing={0}>
+              <ViewerInfo roomId={this.roomId} gun={this.gunBase}/>
+              <ActiveEffects gun={this.gunBase.get("activefx")}></ActiveEffects>
+            </VStack>
           </Flex>
         </Box>
       </>

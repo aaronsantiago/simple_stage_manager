@@ -13,13 +13,14 @@ class ActiveEffects extends ReactGunMap {
     return (
       <Box
         p={4}
+        pt={0}
         w={{
           base: "300px",
           lg: "400px",
         }}
         bg="#FFF9"
         position="relative"
-        h="100vh"
+        h="100%"
       >
         <Heading
           fontSize="3em"

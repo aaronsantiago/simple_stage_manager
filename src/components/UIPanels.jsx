@@ -51,7 +51,7 @@ class UIPanels extends ReactGunMap {
           >
             <Panel
               p={4}
-              color="#FFFa"
+              color="#FFFC"
               borderColor="white"
               heading="simple stage manager"
               bg="#9F7AAFAA"
