@@ -18,7 +18,7 @@ class Manager extends React.Component {
     }
     else {
       this.gunBase = props.gun.get(this.roomId);
-      props.gun.get(this.roomId).put({url: "https://aaron.work"})
+      props.gun.get(this.roomId).put({url: "https://miro.com/app/live-embed/o9J_l4wytsU=/?moveToViewport=-283115,-144320,205362,187213"})
     }
   }
 
@@ -27,7 +27,7 @@ class Manager extends React.Component {
       <>
         <Box minW="100vw" minH="100vh" bg="#D0C5D0">
           <Flex minH="100vh">
-            <Box width="100%">
+            <Box width="100%" height="100%">
               <UIPanels
                 gun={this.gunBase.get("ui")}
                 gunBase={this.gunBase}

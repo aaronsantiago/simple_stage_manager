@@ -53,6 +53,8 @@ class ViewerShakeEffect extends ReactGunMap {
     return (
       <Box width="100%" height="100%" overflow="hidden">
         <Box
+          width="100%"
+          height="100%"
           transform="auto"
           rotate={((angle - Math.PI) * Math.min(10, this.state.shake)) / 10}
           translateX={Math.cos(angle) * this.state.shake + "px"}
