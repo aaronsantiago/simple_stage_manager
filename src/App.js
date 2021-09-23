@@ -6,6 +6,7 @@ import Manager from "./pages/Manager";
 import Gun from "gun/gun";
 import { chakraTheme } from "./utils/utils";
 import Viewer from "./pages/Viewer";
+import Home from "./pages/Home";
 require("gun/lib/open.js");
 
 var gun = Gun({
@@ -29,12 +30,9 @@ function App() {
             <Route path="/v/:room_id">
               <Viewer gun={gunBase}/>
             </Route>
-            {/* <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route> */}
+            <Route path="/">
+              <Home gun={gunBase}/>
+            </Route>
           </Switch>
         </div>
       </Router>

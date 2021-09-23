@@ -29,7 +29,12 @@ class FadePanel extends ReactGun {
   render() {
     if (!this.state.gunData) return null;
     return (
-      <Panel onClose={this.deleteMe} bg="green.50" heading="Fade Out:" position="relative">
+      <Panel
+        onClose={this.deleteMe}
+        bg="green.50"
+        heading="Fade Out:"
+        position="relative"
+      >
         <Box px={3} pb={10}>
           <GunInput
             mb={3}
@@ -41,16 +46,16 @@ class FadePanel extends ReactGun {
             gunProperty="title"
           />
         </Box>
-          <Button
-            position="absolute"
-            bottom="0"
-            variant="outline"
-            w="100%"
-            borderRadius="0"
-            onClick={this.activate}
-          >
-            Activate
-          </Button>
+        <Button
+          position="absolute"
+          bottom="0"
+          variant="outline"
+          w="100%"
+          borderRadius="0"
+          onClick={this.activate}
+        >
+          Activate
+        </Button>
       </Panel>
     );
   }

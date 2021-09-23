@@ -20,7 +20,6 @@ class Manager extends React.Component {
     }
     else {
       this.gunBase = props.gun.get(this.roomId);
-      props.gun.get(this.roomId).put({url: "https://miro.com/app/live-embed/o9J_l4wytsU=/?moveToViewport=-283115,-144320,205362,187213"})
     }
   }
 

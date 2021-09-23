@@ -5,7 +5,7 @@ import {
   createStandaloneToast,
   VStack,
   HStack,
-  Button
+  Input
 } from "@chakra-ui/react";
 import Panel from "../components/base/Panel";
 import ReactGun from "./base/ReactGun";
@@ -39,25 +39,33 @@ class ViewerInfo extends ReactGun {
           h="100%"
         >
           <VStack p="3" pt="0">
-            <HStack w="100%">
-              <Text>Viewer URL:</Text>
-              <Text
-                onClick={() => {
-                  navigator.clipboard.writeText("https://aaron.work/ssm/v/" +this.props.roomId)
+            <Box w="100%" 
+                onClick={(e) => {
+                  navigator.clipboard.writeText(
+                    "https://aaron.work/ssm/v/" + this.props.roomId
+                  );
                   this.toast({
                     title: "URL copied to clipboard",
-                    description: "Distribute this URL to users to have them join your experience.",
+                    description:
+                      "Distribute this URL to users to have them join your experience.",
                     status: "success",
                     duration: 9000,
                     isClosable: true,
-                    position: "top-right"
+                    position: "top-right",
                   });
-                }
-                }
+                  e.preventDefault();}}>
+              <Text>Viewer URL:</Text>
+              <Input
+                display="inline-block"
+                overflow="ellipsis"
+                whiteSpace="nowrap"
+                size="xs"
+                bg="#0005"
+                pointerEvents="none"
+                value={"https://aaron.work/ssm/v/" + this.props.roomId}
               >
-                https://aaron.work/ssm/v/{this.props.roomId}
-              </Text>
-            </HStack>
+              </Input>
+            </Box>
             <Box w="100%">
               <Text size="xs">Base URL</Text>
               <GunInput

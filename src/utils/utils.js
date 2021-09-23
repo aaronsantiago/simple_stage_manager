@@ -1,14 +1,18 @@
-import { extendTheme } from "@chakra-ui/react"
+import { extendTheme } from "@chakra-ui/react";
 
+function shortUuid() {
+  return "xxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 function uuidv4() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-        /[xy]/g,
-        function (c) {
-        var r = (Math.random() * 16) | 0,
-            v = c == "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-        }
-    );
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
 
 const chakraTheme = extendTheme({
@@ -32,14 +36,14 @@ const chakraTheme = extendTheme({
     Button: {
       variants: {
         outline: {
-          "borderLeft": 0,
-          "borderRight": 0,
-          "borderBottom": 0,
-          "backgroundColor": "#FFF7",
+          borderLeft: 0,
+          borderRight: 0,
+          borderBottom: 0,
+          backgroundColor: "#FFF7",
         },
       },
     },
   },
 });
 
-export {uuidv4, chakraTheme}
+export { uuidv4, shortUuid, chakraTheme };
