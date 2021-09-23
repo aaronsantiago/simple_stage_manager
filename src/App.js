@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-import Controller from "./pages/Controller";
+import Manager from "./pages/Manager";
 import Gun from "gun/gun";
 import { extendTheme } from "@chakra-ui/react"
 import Viewer from "./pages/Viewer";
@@ -50,11 +50,11 @@ function App() {
         <div>
 
           <Switch>
-            <Route path="/controller/:room_id">
-              <Controller gun={gunBase} />
+            <Route path="/manager/:room_id">
+              <Manager gun={gunBase} />
             </Route>
-            <Route path="/controller">
-              <Controller gun={gunBase} />
+            <Route path="/manager">
+              <Manager gun={gunBase} />
             </Route>
             <Route path="/v/:room_id">
               <Viewer gun={gunBase}/>

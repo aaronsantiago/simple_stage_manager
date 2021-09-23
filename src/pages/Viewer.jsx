@@ -6,6 +6,7 @@ import { withRouter } from "react-router";
 import ViewerIFrame from "../components/ViewerIFrame";
 import IFrame from "../components/IFrame";
 import ViewerOverlayEffect from "../components/viewerEffects/ViewerOverlayEffect";
+import ViewerYoutubeEffect from "../components/viewerEffects/ViewerYoutubeEffect";
 
 class Viewer extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Viewer extends React.Component {
         <Box minW="100vw" minH="100vh">
           <ViewerIFrame w="100%" h="100%" gun={this.gunBase}/>
           <ViewerOverlayEffect gun={this.gunBase.get("activefx")}/>
+          <ViewerYoutubeEffect gun={this.gunBase.get("activefx")}/>
         </Box>
       </>
     );

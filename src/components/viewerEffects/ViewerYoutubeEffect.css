@@ -1,0 +1,10 @@
+
+.ytPlayer{
+	position: fixed;
+  top: -50vh;
+  left: 0;
+	width: 100vw;
+	height: 200vh;
+	z-index:  0;
+  pointer-events: none;
+}

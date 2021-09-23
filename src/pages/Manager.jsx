@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { withRouter } from "react-router";
 
-class Controller extends React.Component {
+class Manager extends React.Component {
   constructor(props) {
     super(props);
     this.roomId = this.props.match.params.room_id;
@@ -41,4 +41,4 @@ class Controller extends React.Component {
   }
 }
 
-export default withRouter(Controller);
+export default withRouter(Manager);
