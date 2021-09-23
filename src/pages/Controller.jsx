@@ -18,6 +18,7 @@ class Controller extends React.Component {
     }
     else {
       this.gunBase = props.gun.get(this.roomId);
+      props.gun.get(this.roomId).put({url: "https://aaron.work"})
     }
   }
 

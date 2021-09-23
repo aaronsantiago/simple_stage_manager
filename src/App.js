@@ -5,6 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Controller from "./pages/Controller";
 import Gun from "gun/gun";
 import { extendTheme } from "@chakra-ui/react"
+import Viewer from "./pages/Viewer";
 require("gun/lib/open.js");
 
 var gun = Gun({
@@ -56,7 +57,7 @@ function App() {
               <Controller gun={gunBase} />
             </Route>
             <Route path="/v/:room_id">
-              
+              <Viewer gun={gunBase}/>
             </Route>
             {/* <Route path="/about">
             <About />
