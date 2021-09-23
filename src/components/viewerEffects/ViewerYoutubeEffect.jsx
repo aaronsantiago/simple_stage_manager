@@ -7,6 +7,13 @@ import { Box } from "@chakra-ui/layout";
 import "./ViewerYoutubeEffect.css";
 
 class ViewerYoutubeEffect extends ReactGunMap {
+
+  constructor(props) {
+    super(props);
+    this.ytMap = {};
+    this.state.videoLoaded = false;
+  }
+
   render() {
     return (
       <>
@@ -21,8 +28,16 @@ class ViewerYoutubeEffect extends ReactGunMap {
               data.stopped === true ||
               !data.url || 
               data.url == ""
-            )
+            ) {
+              if (this.ytMap[data.key] != null) {
+                this.ytMap[data.key] = null;
+              }
               return;
+            }
+
+            if (this.ytMap[data.key] != null) {
+              this.ytMap[data.key].setVolume(Math.floor(data.volume * 100));
+            }
             return (
               <Box
                 w="100vw"
@@ -51,6 +66,19 @@ class ViewerYoutubeEffect extends ReactGunMap {
                     playerVars: { autoplay: 1, controls: 0 },
                   }}
                   videoId={getVideoId(data.url).id}
+                  onReady={ (e) =>
+                    {
+                      this.ytMap[data.key] = e.target;
+                      this.setState({
+                        ...this.gunData,
+                        videoLoaded: !this.state.videoLoaded
+                      })
+                    }
+                    // function onPlayerReady(event) {
+                    //   event.target.setVolume(100);
+                    //   event.target.playVideo();
+                    // }
+                  }
                 />
               </Box>
             );
