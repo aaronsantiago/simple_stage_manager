@@ -55,6 +55,9 @@ function App() {
             <Route path="/controller">
               <Controller gun={gunBase} />
             </Route>
+            <Route path="/v/:room_id">
+              
+            </Route>
             {/* <Route path="/about">
             <About />
           </Route>
