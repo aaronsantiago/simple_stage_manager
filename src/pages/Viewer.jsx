@@ -1,6 +1,8 @@
 import React from "react";
 import {
   Box,
+  Center,
+  Heading
 } from "@chakra-ui/react";
 import { withRouter } from "react-router";
 import ViewerIFrame from "../components/ViewerIFrame";
@@ -20,11 +22,31 @@ class Viewer extends React.Component {
     else {
       this.gunBase = props.gun.get(this.roomId);
     }
+    this.state = {overlayDismissed: false};
   }
 
   render() {
     return (
       <>
+        {this.state.overlayDismissed ? null : (
+          <Box
+            bg="black"
+            color="white"
+            zIndex="1000"
+            position="absolute"
+            top="0"
+            left="0"
+            width="100vw"
+            height="100vh"
+            onClick={() => {
+              this.setState({ overlayDismissed: true });
+            }}
+          >
+            <Center width="100vw" height="100vh">
+              <Heading>click to begin</Heading>
+            </Center>
+          </Box>
+        )}
         <ViewerHideMiroControlsEffect gun={this.gunBase.get("activefx")}>
           <ViewerShakeEffect gun={this.gunBase.get("activefx")}>
             <Box minW="100vw" minH="100vh" w="100%" h="100%">
