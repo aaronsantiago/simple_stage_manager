@@ -19,7 +19,8 @@ class ViewerYoutubeEffect extends ReactGunMap {
               data.deleted === true ||
               data.type != "youtube" ||
               data.stopped === true ||
-              !data.url
+              !data.url || 
+              data.url == ""
             )
               return;
             return (
