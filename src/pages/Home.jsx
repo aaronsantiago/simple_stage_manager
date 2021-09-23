@@ -26,7 +26,7 @@ function Home(props) {
     if (url != "") {
       props.gun.get(instance).put({url});
     }
-    history.push("manager/" + instance);
+    history.push("/manager/" + instance);
   }
   return (
     <>

@@ -11,6 +11,7 @@ import Panel from "../components/base/Panel";
 import ReactGun from "./base/ReactGun";
 import GunInput from "./base/GunInput";
 import { chakraTheme } from "../utils/utils";
+import { withRouter } from "react-router";
 
   // const toast = useToast({})
   // toast({
@@ -42,7 +43,7 @@ class ViewerInfo extends ReactGun {
             <Box w="100%" 
                 onClick={(e) => {
                   navigator.clipboard.writeText(
-                    "https://aaron.work/ssm/v/" + this.props.roomId
+                    "https://aaron.work/ssm#/v/" + this.props.roomId
                   );
                   this.toast({
                     title: "URL copied to clipboard",
@@ -62,7 +63,7 @@ class ViewerInfo extends ReactGun {
                 size="xs"
                 bg="#0005"
                 pointerEvents="none"
-                value={"https://aaron.work/ssm/v/" + this.props.roomId}
+                value={"https://aaron.work/ssm#/v/" + this.props.roomId}
               >
               </Input>
             </Box>
@@ -82,4 +83,4 @@ class ViewerInfo extends ReactGun {
   }
 }
 
-export default ViewerInfo;
+export default withRouter(ViewerInfo);

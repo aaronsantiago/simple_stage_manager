@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import Manager from "./pages/Manager";
 import Gun from "gun/gun";
@@ -16,10 +16,9 @@ let gunBase = gun.get("simple_stage_manager");
 
 function App() {
   return (
-    <ChakraProvider theme={chakraTheme}>
-      <Router>
+    <HashRouter>
+      <ChakraProvider theme={chakraTheme}>
         <div>
-
           <Switch>
             <Route path="/manager/:room_id">
               <Manager gun={gunBase} />
@@ -28,15 +27,15 @@ function App() {
               <Manager gun={gunBase} />
             </Route>
             <Route path="/v/:room_id">
-              <Viewer gun={gunBase}/>
+              <Viewer gun={gunBase} />
             </Route>
             <Route path="/">
-              <Home gun={gunBase}/>
+              <Home gun={gunBase} />
             </Route>
           </Switch>
         </div>
-      </Router>
-    </ChakraProvider>
+      </ChakraProvider>
+    </HashRouter>
   );
 }
 
