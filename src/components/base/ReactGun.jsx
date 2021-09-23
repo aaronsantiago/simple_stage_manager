@@ -17,6 +17,7 @@ class ReactGun extends React.Component {
       }
       else {
         this.setState({
+          ...this.state,
           gunData: property,
         });
       }

@@ -7,6 +7,7 @@ import ViewerIFrame from "../components/ViewerIFrame";
 import IFrame from "../components/IFrame";
 import ViewerOverlayEffect from "../components/viewerEffects/ViewerOverlayEffect";
 import ViewerYoutubeEffect from "../components/viewerEffects/ViewerYoutubeEffect";
+import ViewerFadeEffect from "../components/viewerEffects/ViewerFadeEffect";
 
 class Viewer extends React.Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class Viewer extends React.Component {
           <ViewerIFrame w="100%" h="100%" gun={this.gunBase}/>
           <ViewerOverlayEffect gun={this.gunBase.get("activefx")}/>
           <ViewerYoutubeEffect gun={this.gunBase.get("activefx")}/>
+          <ViewerFadeEffect gun={this.gunBase.get("activefx")}/>
         </Box>
       </>
     );

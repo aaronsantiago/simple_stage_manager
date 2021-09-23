@@ -4,6 +4,7 @@ class ReactGunMap extends ReactGun {
   constructor(props) {
     super(props);
     this._gunCache = {};
+    this.extraState = {};
   }
 
   componentDidMount() {
@@ -14,6 +15,7 @@ class ReactGunMap extends ReactGun {
         [key]: property,
       };
       this.setState({
+        ...this.state,
         gunData: this._gunCache,
       });
     });
