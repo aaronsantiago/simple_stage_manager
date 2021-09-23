@@ -48,8 +48,7 @@ class URLOverlayPanel extends ReactGun {
               gunProperty="title"
             />
             <VStack
-              spacing={1.5}
-              divider={<StackDivider borderColor="gray.200" />}
+              spacing={3.5}
               align="stretch"
             >
               <Box>
@@ -62,7 +61,7 @@ class URLOverlayPanel extends ReactGun {
                 />
               </Box>
               <GunCheckbox
-                title="Allow users to click through"
+                title="Users can click through"
                 gun={this.props.gun}
                 gunProperty="clickthrough"
               />

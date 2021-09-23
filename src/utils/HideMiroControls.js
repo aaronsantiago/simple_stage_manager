@@ -7,6 +7,7 @@ function createPanel(gun) {
     title: "New Miro Hide Controls Effect",
     key: id,
     deleted: false,
+    timestamp: Date.now(),
   };
   gun.get("ui").get(id).put(data, console.log);
 }
@@ -21,6 +22,7 @@ function activateEffect(gun, data) {
       key: data.key,
       deleted: false,
       title: data.title,
+      timestamp: Date.now(),
     });
 }
 

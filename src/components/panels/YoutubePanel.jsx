@@ -4,7 +4,6 @@ import ReactGun from "../base/ReactGun";
 import {
   Text,
   Box,
-  ButtonGroup,
   Button,
   StackDivider,
   VStack,

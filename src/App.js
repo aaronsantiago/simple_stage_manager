@@ -28,8 +28,20 @@ const theme = extendTheme({
     "2xl": "0",
     "3xl": "0",
     full: "9999px",
-  }
-})
+  },
+  components: {
+    Button: {
+      variants: {
+        outline: {
+          "borderLeft": 0,
+          "borderRight": 0,
+          "borderBottom": 0,
+          "backgroundColor": "#FFF7",
+        },
+      },
+    },
+  },
+});
 function App() {
   return (
     <ChakraProvider theme={theme}>

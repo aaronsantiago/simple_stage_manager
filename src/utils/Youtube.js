@@ -10,6 +10,7 @@ function createPanel(gun) {
     key: id,
     deleted: false,
     volume: 1,
+    timestamp: Date.now(),
   };
   gun.get("ui").get(id).put(data, console.log);
 }
@@ -30,7 +31,8 @@ function activateEffect(gun, data) {
       url: data.url,
       hidden: data.hidden,
       volume: data.volume,
-    });
+      timestamp: Date.now(),
+  });
 }
 
 function stopEffect(gun) {

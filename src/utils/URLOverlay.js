@@ -10,6 +10,7 @@ function createPanel(gun) {
     clickthrough: false,
     key: id,
     deleted: false,
+    timestamp: Date.now(),
   };
   gun.get("ui").get(id).put(data, console.log);
 }
@@ -27,7 +28,8 @@ function activateEffect(gun, data) {
       title: data.title,
       url: data.url,
       clickthrough: data.clickthrough,
-      hidden: data.hidden
+      hidden: data.hidden,
+      timestamp: Date.now(),
     });
 }
 

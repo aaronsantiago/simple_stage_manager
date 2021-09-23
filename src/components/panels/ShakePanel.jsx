@@ -53,8 +53,7 @@ class ShakePanel extends ReactGun {
               gunProperty="title"
             />
             <VStack
-              spacing={1.5}
-              divider={<StackDivider borderColor="gray.200" />}
+              spacing={5}
               align="stretch"
             >
               <GunNumberInput

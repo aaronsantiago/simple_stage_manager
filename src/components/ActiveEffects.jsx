@@ -1,5 +1,5 @@
 import React from "react";
-import { map } from "lodash";
+import { map, sortBy } from "lodash";
 import ReactGunMap from "./base/ReactGunMap";
 import YoutubeEffect from "./effects/YoutubeEffect";
 import URLOverlayEffect from "./effects/URLOverlayEffect";
@@ -11,36 +11,60 @@ import {Box, Heading, Grid} from "@chakra-ui/react"
 class ActiveEffects extends ReactGunMap {
   render() {
     return (
-      <Box>
-        <Heading>Active Effects</Heading>
-        <Grid
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
-            lg: "repeat(4, 1fr)",
-            xl: "repeat(5, 1fr)",
-          }}
-          gap={4}
+      <Box
+        p={4}
+        w={{
+          base: "300px",
+          lg: "400px",
+        }}
+        bg="#FFF9"
+        position="relative"
+        h="100vh"
+      >
+        <Heading
+          fontSize="3em"
+          color="#D0C5D0"
+          position="absolute"
+          bottom="3"
+          left="3"
+          verticalAlign="bottom"
         >
-        {map(this.state.gunData, (el, key) => {
-          if (el === null || el.deleted === true) return;
-          let defaultProps = { key: key, gun: this.gunBase.get(key) };
-          switch (el.type) {
-            case "youtube":
-              return <YoutubeEffect {...defaultProps} />;
-            case "overlay":
-              return <URLOverlayEffect {...defaultProps} />;
-            case "fade":
-              return <FadeEffect {...defaultProps} />;
-            case "shake":
-              return <ShakeEffect {...defaultProps} />;
-            case "miro-hide":
-              return <HideMiroControlEffect {...defaultProps} />;
-          }
-          return null;
-        })}
-        </Grid>
+          active effects
+        </Heading>
+        <Box h="100%" overflow="scroll">
+          <Grid
+            templateColumns={{
+              base: "repeat(1, 1fr)",
+              lg: "repeat(2, 1fr)",
+              // md: "repeat(3, 1fr)",
+              // lg: "repeat(4, 1fr)",
+              // xl: "repeat(5, 1fr)",
+            }}
+            gap={4}
+          >
+            {map(
+              sortBy(this.state.gunData, (o) => o.timestamp),
+              (el) => {
+                if (el === null || el.deleted === true) return;
+                let key = "activefx" + el.key;
+                let defaultProps = { key: key, gun: this.gunBase.get(key) };
+                switch (el.type) {
+                  case "youtube":
+                    return <YoutubeEffect {...defaultProps} />;
+                  case "overlay":
+                    return <URLOverlayEffect {...defaultProps} />;
+                  case "fade":
+                    return <FadeEffect {...defaultProps} />;
+                  case "shake":
+                    return <ShakeEffect {...defaultProps} />;
+                  case "miro-hide":
+                    return <HideMiroControlEffect {...defaultProps} />;
+                }
+                return null;
+              }
+            )}
+          </Grid>
+        </Box>
       </Box>
     );
   }

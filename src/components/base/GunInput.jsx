@@ -26,6 +26,7 @@ class GunInput extends ReactGun {
     if (this.state.gunData == null) return null;
     return (
       <Input
+        textOverflow="ellipsis"
         ref={this.inputRef}
         onFocus={() =>
           this.setState({

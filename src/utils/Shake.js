@@ -9,6 +9,7 @@ function createPanel(gun) {
     deleted: false,
     duration: 3,
     strength: 1,
+    timestamp: Date.now(),
   };
   gun.get("ui").get(id).put(data, console.log);
 }
@@ -25,6 +26,7 @@ function activateEffect(gun, data) {
       title: data.title,
       duration: data.duration,
       strength: data.strength,
+      timestamp: Date.now(),
     });
 }
 
