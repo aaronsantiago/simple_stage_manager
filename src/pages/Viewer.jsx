@@ -43,13 +43,17 @@ class Viewer extends React.Component {
           </Box>
         )}
         <ViewerShakeEffect gun={this.gunBase.get("activefx")}>
-          <Box minW="100vw" minH="100vh" w="100%" h="100%">
+          <Box w="100vw" h="100vh">
             <ViewerHideMiroControlsEffect gun={this.gunBase.get("activefx")}>
-              <ViewerIFrame w="100%" h="100%" gun={this.gunBase} />
+              <ViewerIFrame gun={this.gunBase} />
             </ViewerHideMiroControlsEffect>
-            <ViewerOverlayEffect gun={this.gunBase.get("activefx")} />
-            <ViewerYoutubeEffect gun={this.gunBase.get("activefx")} />
-            <ViewerFadeEffect gun={this.gunBase.get("activefx")} />
+            {!this.state.overlayDismissed ? null : (
+              <>
+                <ViewerOverlayEffect gun={this.gunBase.get("activefx")} />
+                <ViewerYoutubeEffect gun={this.gunBase.get("activefx")} />
+                <ViewerFadeEffect gun={this.gunBase.get("activefx")} />
+              </>
+            )}
           </Box>
         </ViewerShakeEffect>
       </>

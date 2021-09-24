@@ -1,6 +1,6 @@
 
 .ytPlayer{
-	position: fixed;
+	position: absolute;
   top: -50vh;
   left: 0;
 	width: 100vw;
