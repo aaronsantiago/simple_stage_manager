@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Center,
-  Heading
-} from "@chakra-ui/react";
+import { Box, Center, Heading } from "@chakra-ui/react";
 import { withRouter } from "react-router";
 import ViewerIFrame from "../components/ViewerIFrame";
 import ViewerOverlayEffect from "../components/viewerEffects/ViewerOverlayEffect";
@@ -18,11 +14,10 @@ class Viewer extends React.Component {
     this.roomId = this.props.match.params.room_id;
     if (this.roomId == null) {
       this.gunBase = props.gun;
-    }
-    else {
+    } else {
       this.gunBase = props.gun.get(this.roomId);
     }
-    this.state = {overlayDismissed: false};
+    this.state = { overlayDismissed: false };
   }
 
   render() {
@@ -47,16 +42,16 @@ class Viewer extends React.Component {
             </Center>
           </Box>
         )}
-        <ViewerHideMiroControlsEffect gun={this.gunBase.get("activefx")}>
-          <ViewerShakeEffect gun={this.gunBase.get("activefx")}>
-            <Box minW="100vw" minH="100vh" w="100%" h="100%">
+        <ViewerShakeEffect gun={this.gunBase.get("activefx")}>
+          <Box minW="100vw" minH="100vh" w="100%" h="100%">
+            <ViewerHideMiroControlsEffect gun={this.gunBase.get("activefx")}>
               <ViewerIFrame w="100%" h="100%" gun={this.gunBase} />
-              <ViewerOverlayEffect gun={this.gunBase.get("activefx")} />
-              <ViewerYoutubeEffect gun={this.gunBase.get("activefx")} />
-              <ViewerFadeEffect gun={this.gunBase.get("activefx")} />
-            </Box>
-          </ViewerShakeEffect>
-        </ViewerHideMiroControlsEffect>
+            </ViewerHideMiroControlsEffect>
+            <ViewerOverlayEffect gun={this.gunBase.get("activefx")} />
+            <ViewerYoutubeEffect gun={this.gunBase.get("activefx")} />
+            <ViewerFadeEffect gun={this.gunBase.get("activefx")} />
+          </Box>
+        </ViewerShakeEffect>
       </>
     );
   }
