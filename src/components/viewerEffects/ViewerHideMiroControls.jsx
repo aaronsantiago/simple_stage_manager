@@ -44,20 +44,24 @@ class ViewerHideMiroControlsEffect extends ReactGunMap {
       controlsHidden = true;
     });
     return (
-      <Box width="100%" height="100%" overflow="hidden">
-        <Box
-          {...(controlsHidden
-            ? {
-                position: "absolute",
-                width: "210vw",
-                height: "130vh",
-                top: "-30vh",
-                left: "-50vw",
-              }
-            : {})}
-        >
-          {this.props.children}
-        </Box>
+      <Box
+        {...(controlsHidden
+          ? {
+              position: "absolute",
+              width: "210vw",
+              height: "130vh",
+              top: "-30vh",
+              left: "-50vw",
+            }
+          : {
+              position: "absolute",
+              width: "100vw",
+              height: "100vh",
+              top: "0",
+              left: "0",
+            })}
+      >
+        {this.props.children}
       </Box>
     );
   }

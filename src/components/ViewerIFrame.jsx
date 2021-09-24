@@ -3,13 +3,19 @@ import ReactGun from "./base/ReactGun";
 import {
   Box,
 } from "@chakra-ui/react";
-import IFrame from "./IFrame";
 
 class ViewerIFrame extends ReactGun {
   render() {
     if (!this.state.gunData) return null;
     return (
-      <IFrame pointerEvents="auto" src={this.state.gunData.url}/>
+      <iframe 
+      style={{
+        width:"100%",
+        height:"100%",
+        pointerEvents:"auto",
+        zindex:"0",
+      }}
+      src={this.state.gunData.url}/>
     );
   }
 }

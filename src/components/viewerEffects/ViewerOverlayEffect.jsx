@@ -1,7 +1,6 @@
 import React from "react";
 import { map, sortBy } from "lodash";
 import ReactGunMap from "../base/ReactGunMap";
-import IFrame from "../IFrame";
 
 class ViewerOverlayEffect extends ReactGunMap {
   render() {
@@ -10,9 +9,16 @@ class ViewerOverlayEffect extends ReactGunMap {
       (el) => {
         if (el === null || el.deleted === true || el.type != "overlay") return;
         return (
-          <IFrame
+          <iframe
+            style={{
+              width: "100vw",
+              height: "100vh",
+              position: "absolute",
+              top: "0",
+              left: "0",
+            }}
             pointerEvents={el.clickthrough ? "none" : "auto"}
-            hidden={el.hidden}
+            zindex={el.hidden ? -10000 : 0}
             src={el.url}
           />
         );
