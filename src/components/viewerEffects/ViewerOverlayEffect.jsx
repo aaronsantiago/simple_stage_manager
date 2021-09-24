@@ -16,9 +16,10 @@ class ViewerOverlayEffect extends ReactGunMap {
               position: "absolute",
               top: "0",
               left: "0",
+              pointerEvents: el.clickthrough ? "none" : "auto",
+              zindex: el.hidden ? -10000 : 0
             }}
-            pointerEvents={el.clickthrough ? "none" : "auto"}
-            zindex={el.hidden ? -10000 : 0}
+            
             src={el.url}
           />
         );
