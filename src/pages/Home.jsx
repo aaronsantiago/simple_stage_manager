@@ -11,6 +11,7 @@ import Panel from "../components/base/Panel";
 import { useRef } from "react";
 import { shortUuid, uuidv4 } from "../utils/utils";
 import { useHistory } from "react-router";
+import GithubCorner from 'react-github-corner';
 
 function Home(props) {
   const instanceInput = useRef(null);  
@@ -30,6 +31,7 @@ function Home(props) {
   }
   return (
     <>
+      <GithubCorner size="100px" bannerColor="#0008" href="https://github.com/aaronsantiago/simple_stage_manager" />
       <Box minW="100vw" minH="100vh" bg="#D0C5D0">
         <Center width="100vw" height="100vh">
           <Box w="300px" minH="300px" bg="gray.100" position="relative">
