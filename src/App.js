@@ -13,6 +13,8 @@ var gun = Gun({
   peers: ["https://aarondotwork-gun-server.herokuapp.com/gun"],
 });
 let gunBase = gun.get("simple_stage_manager");
+window.unusedUiIds = [];
+window.unusedAeIds = [];
 
 function App() {
   return (

@@ -1,7 +1,7 @@
-import { uuidv4 } from "./utils";
+import { uiId } from "./utils";
 
 function createPanel(gun) {
-  let id = uuidv4();
+  let id = uiId();
   let data = {
     type: "youtube",
     title: "New Youtube Effect",

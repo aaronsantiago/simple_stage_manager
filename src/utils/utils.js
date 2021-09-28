@@ -14,6 +14,13 @@ function uuidv4() {
     return v.toString(16);
   });
 }
+function uiId() {
+  let id = uuidv4();
+  if (window.unusedUiIds.length > 0) {
+    id = window.unusedUiIds.pop();
+  }
+  return id;
+}
 
 const chakraTheme = extendTheme({
   colors: {
@@ -46,4 +53,4 @@ const chakraTheme = extendTheme({
   },
 });
 
-export { uuidv4, shortUuid, chakraTheme };
+export { uuidv4, uiId, shortUuid, chakraTheme };

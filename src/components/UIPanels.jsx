@@ -32,6 +32,15 @@ class UIPanels extends ReactGunMap {
     this.rootGunBase = props.gunBase;
   }
 
+  componentDidUpdate() {
+    window.unusedUiIds = [];
+    map(this.state.gunData, (el, key) => {
+      if (el == null || el.deleted) {
+        window.unusedUiIds.push(key);
+      }
+    })
+  }
+
   render() {
     return (
       <Box bg="none" h="100vh" position="relative">
