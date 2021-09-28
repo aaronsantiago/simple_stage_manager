@@ -35,7 +35,6 @@ class Manager extends React.Component {
               ></UIPanels>
             </Box>
             <VStack h="100vh" spacing={0}>
-              <ViewerInfo roomId={this.roomId} gun={this.gunBase}/>
               <ActiveEffects gun={this.gunBase.get("activefx")}></ActiveEffects>
             </VStack>
           </Flex>

@@ -14,7 +14,7 @@ class YoutubeEffect extends React.Component {
   }
 
   stop() {
-    Youtube.stopEffect(this.gunBase);
+    Youtube.stopEffect(this.props.gun);
   }
 
   render() {

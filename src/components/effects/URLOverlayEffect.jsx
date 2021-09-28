@@ -12,7 +12,7 @@ class URLOverlayEffect extends React.Component {
   }
 
   stop() {
-    URLOverlay.stopEffect(this.gunBase);
+    URLOverlay.stopEffect(this.props.gun);
   }
 
   render() {

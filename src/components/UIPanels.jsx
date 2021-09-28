@@ -119,7 +119,7 @@ class UIPanels extends ReactGunMap {
                 let defaultProps = {
                   key: key,
                   gun: this.gunBase.get(key),
-                  gunBase: this.rootGunBase,
+                  gunBase: this.props.gunBase,
                   data: el,
                 };
                 switch (el.type) {

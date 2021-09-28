@@ -12,7 +12,7 @@ class HideMiroControlsEffect extends React.Component {
   }
 
   stop() {
-    HideMiroControls.stopEffect(this.gunBase);
+    HideMiroControls.stopEffect(this.props.gun);
   }
 
   render() {

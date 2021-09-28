@@ -28,7 +28,7 @@ class YoutubePanel extends React.Component {
   }
 
   deleteMe() {
-    this.gunBase.put(null);
+    this.props.gun.put(null);
   }
 
   render() {

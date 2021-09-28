@@ -22,7 +22,7 @@ class ShakeEffect extends React.Component {
   }
 
   stop() {
-    Shake.stopEffect(this.gunBase);
+    Shake.stopEffect(this.props.gun);
   }
 
   render() {

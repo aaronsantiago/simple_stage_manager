@@ -12,7 +12,7 @@ class FadeEffect extends React.Component {
   }
 
   stop() {
-    Fade.stopEffect(this.gunBase);
+    Fade.stopEffect(this.props.gun);
   }
 
   render() {

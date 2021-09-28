@@ -7,13 +7,13 @@ import FadeEffect from "./effects/FadeEffect";
 import ShakeEffect from "./effects/ShakeEffect";
 import HideMiroControlEffect from "./effects/HideMiroControlsEffect";
 import { Box, Heading, Grid } from "@chakra-ui/react";
+import ViewerInfo from "./ViewerInfo";
 
 class ActiveEffects extends ReactGunMap {
   render() {
     return (
       <Box
         p={4}
-        pt={0}
         w={{
           base: "300px",
           lg: "400px",
@@ -43,6 +43,7 @@ class ActiveEffects extends ReactGunMap {
             }}
             gap={4}
           >
+          <ViewerInfo roomId={this.roomId} gun={this.gunBase}/>
             {map(
               sortBy(this.state.gunData, (o) => o.timestamp),
               (el) => {

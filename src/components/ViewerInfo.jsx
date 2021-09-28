@@ -30,7 +30,7 @@ class ViewerInfo extends ReactGun {
   }
   render() {
     return (
-      <Box bg="#FFF9" maxH="200px" w="100%" p="4">
+      // <Box bg="#FFF9" maxH="200px" w="100%" p="4">
         <Panel
           bg="#9F7AAFAA"
           borderColor="white"
@@ -78,7 +78,7 @@ class ViewerInfo extends ReactGun {
             </Box>
           </VStack>
         </Panel>
-      </Box>
+      // </Box>
     );
   }
 }
