@@ -5,7 +5,7 @@ import ReactGunMap from "../base/ReactGunMap";
 class ViewerOverlayEffect extends ReactGunMap {
   render() {
     return map(
-      sortBy(this.state.gunData, (o) => o.timestamp),
+      sortBy(this.state.gunData, (o) => o?.timestamp),
       (el) => {
         if (el === null || el.deleted === true || el.type != "overlay") return;
         return (

@@ -44,7 +44,7 @@ class ActiveEffects extends ReactGunMap {
             }}
             gap={4}
           >
-            <ViewerInfo roomId={this.roomId} gun={this.gunBase} />
+            <ViewerInfo roomId={this.props.roomId} gun={this.props.gunBase} />
             {map(
               sortBy(this.state.gunData, (o) =>
                 o?.timestamp ? -o.timestamp : null

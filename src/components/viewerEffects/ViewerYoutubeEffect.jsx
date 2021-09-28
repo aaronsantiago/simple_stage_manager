@@ -18,18 +18,20 @@ class ViewerYoutubeEffect extends ReactGunMap {
       <>
         ;
         {map(
-          sortBy(this.state.gunData, (o) => o.timestamp),
+          sortBy(this.state.gunData, (o) => o?.timestamp),
           (data) => {
             if (
-              data === null ||
+              data == null ||
               data.deleted === true ||
               data.type != "youtube" ||
               data.stopped === true ||
               !data.url ||
               data.url == ""
             ) {
-              if (this.ytMap[data.key] != null) {
-                this.ytMap[data.key] = null;
+              if (data != null) {
+                if (this.ytMap[data.key] != null) {
+                  this.ytMap[data.key] = null;
+                }
               }
               return;
             }

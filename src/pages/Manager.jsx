@@ -1,12 +1,7 @@
 import React from "react";
 import UIPanels from "../components/UIPanels";
 import ActiveEffects from "../components/ActiveEffects";
-import {
-  Text,
-  Box,
-  Flex,
-  VStack
-} from "@chakra-ui/react";
+import { Text, Box, Flex, VStack } from "@chakra-ui/react";
 import { withRouter } from "react-router";
 import Panel from "../components/base/Panel";
 import ViewerInfo from "../components/ViewerInfo";
@@ -14,12 +9,10 @@ import ViewerInfo from "../components/ViewerInfo";
 class Manager extends React.Component {
   constructor(props) {
     super(props);
-    this.roomId = this.props.match.params.room_id;
-    if (this.roomId == null) {
+    if (this.props.match.params.room_id == null) {
       this.gunBase = props.gun;
-    }
-    else {
-      this.gunBase = props.gun.get(this.roomId);
+    } else {
+      this.gunBase = props.gun.get(this.props.match.params.room_id);
     }
   }
 
@@ -35,7 +28,11 @@ class Manager extends React.Component {
               ></UIPanels>
             </Box>
             <VStack h="100vh" spacing={0}>
-              <ActiveEffects gun={this.gunBase.get("activefx")}></ActiveEffects>
+              <ActiveEffects
+                gun={this.gunBase.get("activefx")}
+                gunBase={this.gunBase}
+                roomId={this.props.match.params.room_id}
+              ></ActiveEffects>
             </VStack>
           </Flex>
         </Box>
