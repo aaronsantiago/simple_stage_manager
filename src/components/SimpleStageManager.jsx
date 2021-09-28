@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import Spacer from "../utils/Spacer";
 import Notes from "../utils/Notes";
+import ChangeBaseURL from "../utils/ChangeBaseURL";
 
 function SimpleStageManager({gun}) {
   return <Panel
@@ -40,6 +41,9 @@ function SimpleStageManager({gun}) {
             </MenuItem>
             <MenuItem onClick={() => URLOverlay.createPanel(gun)}>
               URL Overlay
+            </MenuItem>
+            <MenuItem onClick={() => ChangeBaseURL.createPanel(gun)}>
+              Change Base URL
             </MenuItem>
             <MenuDivider />
             <MenuItem onClick={() => Fade.createPanel(gun)}>

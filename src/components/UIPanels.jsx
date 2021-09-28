@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import SimpleStageManager from "./SimpleStageManager";
 import SpacerPanel from "./panels/SpacerPanel";
+import ChangeBaseURLPanel from "./panels/ChangeBaseURLPanel";
 
 class UIPanels extends ReactGunMap {
 
@@ -91,6 +92,8 @@ class UIPanels extends ReactGunMap {
                     return <SpacerPanel {...defaultProps} />;
                   case "notes":
                     return <NotesPanel {...defaultProps} />;
+                    case "changebaseurl":
+                      return <ChangeBaseURLPanel {...defaultProps} />;
                 }
                 return;
               }
