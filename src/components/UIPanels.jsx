@@ -42,6 +42,7 @@ class UIPanels extends ReactGunMap {
   }
 
   render() {
+    let sortedData = sortBy(this.state.gunData, (o) => (o?.timestamp ? -o.timestamp : null));
     return (
       <Box bg="none" h="100vh" position="relative">
         <Heading fontSize="5em" color="#FFF9"position="absolute" bottom="3" right="6" textAlign="right">
@@ -112,8 +113,8 @@ class UIPanels extends ReactGunMap {
               </Box>
             </Panel>
             {map(
-              sortBy(this.state.gunData, (o) => (o?.timestamp ? -o.timestamp : null)),
-              (el) => {
+              sortedData,
+              (el, i) => {
                 if (el === null || el.deleted === true) return;
                 let key = el.key;
                 let defaultProps = {
@@ -122,6 +123,26 @@ class UIPanels extends ReactGunMap {
                   gunBase: this.props.gunBase,
                   data: el,
                 };
+                if (i > 0) {
+                  defaultProps.onMoveUp = () => {
+                    this.gunBase.get(key).get("timestamp").put(
+                      sortedData[i - 1].timestamp
+                    );
+                    this.gunBase.get(sortedData[i - 1].key).get("timestamp").put(
+                      el.timestamp
+                    );
+                  }
+                }
+                if (i < sortedData.length - 1) {
+                  defaultProps.onMoveDown = () => {
+                    this.gunBase.get(key).get("timestamp").put(
+                      sortedData[i + 1].timestamp
+                    );
+                    this.gunBase.get(sortedData[i + 1].key).get("timestamp").put(
+                      el.timestamp
+                    );
+                  }
+                }
                 switch (el.type) {
                   case "youtube":
                     return <YoutubePanel {...defaultProps} />;

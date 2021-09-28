@@ -1,11 +1,7 @@
 import React from "react";
 import HideMiroControls from "../../utils/HideMiroControls";
 import ReactGun from "../base/ReactGun";
-import {
-  Box,
-  ButtonGroup,
-  Button,
-} from "@chakra-ui/react";
+import { Box, ButtonGroup, Button } from "@chakra-ui/react";
 import Panel from "../base/Panel";
 import GunInput from "../base/GunInput";
 
@@ -29,7 +25,14 @@ class HideMiroControlsPanel extends React.Component {
   render() {
     if (!this.props.data) return null;
     return (
-      <Panel onClose={this.deleteMe} bg="green.50" heading="Hide Miro Controls:" position="relative">
+      <Panel
+        onClose={this.deleteMe}
+        bg="green.50"
+        heading="Hide Miro Controls:"
+        position="relative"
+        onMoveUp={this.props.onMoveUp}
+        onMoveDown={this.props.onMoveDown}
+      >
         <Box px={3} pb={10}>
           <GunInput
             mb={3}
@@ -43,16 +46,16 @@ class HideMiroControlsPanel extends React.Component {
             value={this.props.data.title}
           />
         </Box>
-          <Button
-            position="absolute"
-            bottom="0"
-            variant="outline"
-            w="100%"
-            borderRadius="0"
-            onClick={this.activate}
-          >
-            Activate
-          </Button>
+        <Button
+          position="absolute"
+          bottom="0"
+          variant="outline"
+          w="100%"
+          borderRadius="0"
+          onClick={this.activate}
+        >
+          Activate
+        </Button>
       </Panel>
     );
   }

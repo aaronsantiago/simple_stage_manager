@@ -35,7 +35,13 @@ class URLOverlayPanel extends React.Component {
     if (!this.props.data) return null;
     return (
       <GridItem rowSpan={2} colSpan={1}>
-        <Panel onClose={this.deleteMe} bg="red.50" heading="URL Overlay:" position="relative" pb="10">
+        <Panel
+          onClose={this.deleteMe}
+          bg="red.50"
+          heading="URL Overlay:"
+          position="relative"
+          pb="10"
+        >
           <Box px={3} pb={2}>
             <GunInput
               mb={3}
@@ -48,11 +54,10 @@ class URLOverlayPanel extends React.Component {
               gunProperty="title"
               sync={false}
               value={this.props.data.title}
+              onMoveUp={this.props.onMoveUp}
+              onMoveDown={this.props.onMoveDown}
             />
-            <VStack
-              spacing={3.5}
-              align="stretch"
-            >
+            <VStack spacing={3.5} align="stretch">
               <Box>
                 <Text size="xs">Overlay URL</Text>
                 <GunInput

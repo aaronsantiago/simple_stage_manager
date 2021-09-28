@@ -31,6 +31,8 @@ class FadePanel extends React.Component {
     return (
       <Panel
         onClose={this.deleteMe}
+        onMoveUp={this.props.onMoveUp}
+        onMoveDown={this.props.onMoveDown}
         bg="green.50"
         heading="Fade Out:"
         position="relative"

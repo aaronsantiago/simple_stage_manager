@@ -41,6 +41,8 @@ class YoutubePanel extends React.Component {
           heading="Youtube:"
           position="relative"
           pb="10"
+          onMoveUp={this.props.onMoveUp}
+          onMoveDown={this.props.onMoveDown}
         >
           <Box px={3} pb={2}>
             <GunInput
