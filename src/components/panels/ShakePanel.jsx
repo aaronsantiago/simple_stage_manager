@@ -13,7 +13,7 @@ import GunInput from "../base/GunInput";
 import Panel from "../base/Panel";
 import GunNumberInput from "../base/GunNumberInput";
 
-class ShakePanel extends ReactGun {
+class ShakePanel extends React.Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +24,7 @@ class ShakePanel extends ReactGun {
   }
 
   activate() {
-    Shake.activateEffect(this.rootGunBase, this.state.gunData);
+    Shake.activateEffect(this.rootGunBase, this.props.data);
   }
 
   deleteMe() {
@@ -32,7 +32,7 @@ class ShakePanel extends ReactGun {
   }
 
   render() {
-    if (!this.state.gunData) return null;
+    if (!this.props.data) return null;
     return (
       <GridItem rowSpan={2} colSpan={1}>
         <Panel
@@ -51,6 +51,8 @@ class ShakePanel extends ReactGun {
               fontWeight="bold"
               gun={this.props.gun}
               gunProperty="title"
+              sync={false}
+              value={this.props.data.title}
             />
             <VStack
               spacing={5}
@@ -60,11 +62,15 @@ class ShakePanel extends ReactGun {
                 title="duration"
                 gun={this.props.gun}
                 gunProperty="duration"
+                sync={false}
+                value={this.props.data.duration}
               />
               <GunNumberInput
                 title="strength"
                 gun={this.props.gun}
                 gunProperty="strength"
+                sync={false}
+                value={this.props.data.strength}
               />
             </VStack>
           </Box>

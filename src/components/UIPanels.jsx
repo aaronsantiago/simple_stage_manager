@@ -111,6 +111,7 @@ class UIPanels extends ReactGunMap {
                   key: key,
                   gun: this.gunBase.get(key),
                   gunBase: this.rootGunBase,
+                  data: el,
                 };
                 switch (el.type) {
                   case "youtube":

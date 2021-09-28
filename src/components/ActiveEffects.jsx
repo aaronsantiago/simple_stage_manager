@@ -6,7 +6,7 @@ import URLOverlayEffect from "./effects/URLOverlayEffect";
 import FadeEffect from "./effects/FadeEffect";
 import ShakeEffect from "./effects/ShakeEffect";
 import HideMiroControlEffect from "./effects/HideMiroControlsEffect";
-import {Box, Heading, Grid} from "@chakra-ui/react"
+import { Box, Heading, Grid } from "@chakra-ui/react";
 
 class ActiveEffects extends ReactGunMap {
   render() {
@@ -48,7 +48,11 @@ class ActiveEffects extends ReactGunMap {
               (el) => {
                 if (el === null || el.deleted === true) return;
                 let key = "activefx" + el.key;
-                let defaultProps = { key: key, gun: this.gunBase.get(key) };
+                let defaultProps = {
+                  key: key,
+                  gun: this.gunBase.get(key),
+                  data: el,
+                };
                 switch (el.type) {
                   case "youtube":
                     return <YoutubeEffect {...defaultProps} />;

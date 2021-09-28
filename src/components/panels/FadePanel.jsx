@@ -9,7 +9,7 @@ import {
 import Panel from "../base/Panel";
 import GunInput from "../base/GunInput";
 
-class FadePanel extends ReactGun {
+class FadePanel extends React.Component {
   constructor(props) {
     super(props);
     this.rootGunBase = props.gunBase;
@@ -19,7 +19,7 @@ class FadePanel extends ReactGun {
   }
 
   activate() {
-    Fade.activateEffect(this.rootGunBase, this.state.gunData);
+    Fade.activateEffect(this.rootGunBase, this.props.data);
   }
 
   deleteMe() {
@@ -27,7 +27,7 @@ class FadePanel extends ReactGun {
   }
 
   render() {
-    if (!this.state.gunData) return null;
+    if (!this.props.data) return null;
     return (
       <Panel
         onClose={this.deleteMe}
@@ -44,6 +44,8 @@ class FadePanel extends ReactGun {
             fontWeight="bold"
             gun={this.props.gun}
             gunProperty="title"
+            sync={false}
+            value={this.props.data.title}
           />
         </Box>
         <Button

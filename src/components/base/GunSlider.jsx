@@ -13,7 +13,7 @@ import { throttle } from "lodash";
 
 class GunSlider extends ReactGun {
   constructor(props) {
-    super(props);
+    super(props, props.sync == undefined ? true : props.sync);
 
     this.state.test = false;
     this.sliderRef = React.createRef();
@@ -23,7 +23,9 @@ class GunSlider extends ReactGun {
   }
 
   render() {
-    if (this.state.gunData == null) return null;
+    if (this.state.gunData == null && this.props.value == null) return null;
+    let value = this.props.value;
+    if (value == null) value = this.state.gunData[this.props.gunProperty];
     return (
       <VStack px={2} w="100%">
         <Text w="100%">{this.props.title}</Text>
@@ -32,7 +34,7 @@ class GunSlider extends ReactGun {
           min={0}
           max={1}
           step={0.01}
-          value={this.state.gunData[this.props.gunProperty]}
+          value={value}
           focusThumbOnChange={false}
           onChange={(e) => {
             this.sliderRef.current.value = e;

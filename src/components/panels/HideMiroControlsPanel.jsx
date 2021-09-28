@@ -9,7 +9,7 @@ import {
 import Panel from "../base/Panel";
 import GunInput from "../base/GunInput";
 
-class HideMiroControlsPanel extends ReactGun {
+class HideMiroControlsPanel extends React.Component {
   constructor(props) {
     super(props);
     this.rootGunBase = props.gunBase;
@@ -19,7 +19,7 @@ class HideMiroControlsPanel extends ReactGun {
   }
 
   activate() {
-    HideMiroControls.activateEffect(this.rootGunBase, this.state.gunData);
+    HideMiroControls.activateEffect(this.rootGunBase, this.props.data);
   }
 
   deleteMe() {
@@ -27,7 +27,7 @@ class HideMiroControlsPanel extends ReactGun {
   }
 
   render() {
-    if (!this.state.gunData) return null;
+    if (!this.props.data) return null;
     return (
       <Panel onClose={this.deleteMe} bg="green.50" heading="Hide Miro Controls:" position="relative">
         <Box px={3} pb={10}>
@@ -39,6 +39,8 @@ class HideMiroControlsPanel extends ReactGun {
             fontWeight="bold"
             gun={this.props.gun}
             gunProperty="title"
+            sync={false}
+            value={this.props.data.title}
           />
         </Box>
           <Button

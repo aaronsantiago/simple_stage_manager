@@ -14,7 +14,7 @@ import GunInput from "../base/GunInput";
 import Panel from "../base/Panel";
 import GunCheckbox from "../base/GunCheckbox";
 
-class URLOverlayPanel extends ReactGun {
+class URLOverlayPanel extends React.Component {
   constructor(props) {
     super(props);
     this.rootGunBase = props.gunBase;
@@ -24,7 +24,7 @@ class URLOverlayPanel extends ReactGun {
   }
 
   activate() {
-    URLOverlay.activateEffect(this.rootGunBase, this.state.gunData);
+    URLOverlay.activateEffect(this.rootGunBase, this.props.data);
   }
 
   deleteMe() {
@@ -32,7 +32,7 @@ class URLOverlayPanel extends ReactGun {
   }
 
   render() {
-    if (!this.state.gunData) return null;
+    if (!this.props.data) return null;
     return (
       <GridItem rowSpan={2} colSpan={1}>
         <Panel onClose={this.deleteMe} bg="red.50" heading="URL Overlay:" position="relative" pb="10">
@@ -46,6 +46,8 @@ class URLOverlayPanel extends ReactGun {
               fontWeight="bold"
               gun={this.props.gun}
               gunProperty="title"
+              sync={false}
+              value={this.props.data.title}
             />
             <VStack
               spacing={3.5}
@@ -58,17 +60,23 @@ class URLOverlayPanel extends ReactGun {
                   size="xs"
                   gun={this.props.gun}
                   gunProperty="url"
+                  sync={false}
+                  value={this.props.data.url}
                 />
               </Box>
               <GunCheckbox
                 title="Users can click through"
                 gun={this.props.gun}
                 gunProperty="clickthrough"
+                sync={false}
+                value={this.props.data.clickthrough}
               />
               <GunCheckbox
                 title="Hidden while activated"
                 gun={this.props.gun}
                 gunProperty="hidden"
+                sync={false}
+                value={this.props.data.hidden}
               />
             </VStack>
           </Box>

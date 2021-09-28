@@ -4,7 +4,7 @@ import ReactGun from "./ReactGun";
 
 class GunInput extends ReactGun {
   constructor(props) {
-    super(props);
+    super(props, props.sync == undefined ? true : props.sync);
 
     this.state.test = false;
     this.inputRef = React.createRef();
@@ -23,7 +23,9 @@ class GunInput extends ReactGun {
   }
 
   render() {
-    if (this.state.gunData == null) return null;
+    if (this.state.gunData == null && this.props.value == null) return null;
+    let value = this.props.value;
+    if (value == null) value = this.state.gunData[this.props.gunProperty];
     return (
       <Input
         textOverflow="ellipsis"
@@ -31,7 +33,7 @@ class GunInput extends ReactGun {
         onFocus={() =>
           this.setState({
             test: !this.state.test,
-            inputCache: this.state.gunData[this.props.gunProperty],
+            inputCache: value,
           })
         }
         onChange={(e) => {
@@ -43,7 +45,7 @@ class GunInput extends ReactGun {
         value={
           this.currentlyFocused()
             ? this.state.inputCache
-            : this.state.gunData[this.props.gunProperty]
+            : value
         }
       />
     );

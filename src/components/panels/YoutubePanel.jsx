@@ -14,7 +14,7 @@ import Panel from "../base/Panel";
 import GunCheckbox from "../base/GunCheckbox";
 import GunSlider from "../base/GunSlider";
 
-class YoutubePanel extends ReactGun {
+class YoutubePanel extends React.Component {
   constructor(props) {
     super(props);
     this.rootGunBase = props.gunBase;
@@ -24,7 +24,7 @@ class YoutubePanel extends ReactGun {
   }
 
   play() {
-    Youtube.activateEffect(this.rootGunBase, this.state.gunData);
+    Youtube.activateEffect(this.rootGunBase, this.props.data);
   }
 
   deleteMe() {
@@ -32,7 +32,7 @@ class YoutubePanel extends ReactGun {
   }
 
   render() {
-    if (!this.state.gunData) return null;
+    if (!this.props.data) return null;
     return (
       <GridItem rowSpan={2} colSpan={1}>
         <Panel
@@ -52,6 +52,8 @@ class YoutubePanel extends ReactGun {
               fontWeight="bold"
               gun={this.props.gun}
               gunProperty="title"
+              sync={false}
+              value={this.props.data.title}
             />
             <VStack
               spacing={3.5}
@@ -64,17 +66,23 @@ class YoutubePanel extends ReactGun {
                   size="xs"
                   gun={this.props.gun}
                   gunProperty="url"
+                  sync={false}
+                  value={this.props.data.url}
                 />
               </Box>
               <GunCheckbox
                 title="Hidden During Play"
                 gun={this.props.gun}
                 gunProperty="hidden"
+                sync={false}
+                value={this.props.data.hidden}
               />
               <GunSlider
                 title="Starting Volume"
                 gun={this.props.gun}
                 gunProperty="volume"
+                sync={false}
+                value={this.props.data.volume}
               ></GunSlider>
             </VStack>
           </Box>

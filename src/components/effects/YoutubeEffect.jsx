@@ -2,11 +2,11 @@ import React from "react";
 import Youtube from "../../utils/Youtube";
 import ReactGun from "../base/ReactGun";
 import Panel from "../base/Panel";
-import { Button, GridItem, VStack} from "@chakra-ui/react";
+import { Button, GridItem, VStack } from "@chakra-ui/react";
 import GunSlider from "../base/GunSlider";
 import GunCheckbox from "../base/GunCheckbox";
 
-class YoutubeEffect extends ReactGun {
+class YoutubeEffect extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,17 +18,26 @@ class YoutubeEffect extends ReactGun {
   }
 
   render() {
-    if (this.state.gunData.stopped) return null;
+    if (this.props.data.stopped) return null;
     return (
       <GridItem rowSpan={2} colSpan={1}>
-        <Panel bg="blue.100" heading={this.state.gunData.title} pb="10">
+        <Panel bg="blue.100" heading={this.props.data.title} pb="10">
           <VStack w="100%" h="100%" p="1">
             <GunSlider
               title="Volume"
               gun={this.props.gun}
               gunProperty="volume"
+              sync={false}
+              value={this.props.data.volume}
+
             />
-            <GunCheckbox title="Hidden" gun={this.props.gun} gunProperty="hidden"/>
+            <GunCheckbox
+              title="Hidden"
+              gun={this.props.gun}
+              gunProperty="hidden"
+              sync={false}
+              value={this.props.data.hidden}
+            />
           </VStack>
           <Button
             position="absolute"

@@ -4,7 +4,7 @@ import ReactGun from "./ReactGun";
 
 class GunNumberInput extends ReactGun {
   constructor(props) {
-    super(props);
+    super(props, props.sync == undefined ? true : props.sync);
 
     this.state.test = false;
     this.inputRef = React.createRef();
@@ -23,7 +23,9 @@ class GunNumberInput extends ReactGun {
   }
 
   render() {
-    if (this.state.gunData == null) return null;
+    if (this.state.gunData == null && this.props.value == null) return null;
+    let value = this.props.value;
+    if (value == null) value = this.state.gunData[this.props.gunProperty];
     return (
       <HStack w="100%" px={2} spacing={0.5}>
         <Text>{this.props.title}</Text>
@@ -32,7 +34,7 @@ class GunNumberInput extends ReactGun {
           value={
             document.activeElement === this.inputRef.current
               ? this.state.inputCache
-              : this.state.gunData[this.props.gunProperty]
+              : value
           }
           step={0.2}
           ref={this.inputRef}
@@ -40,7 +42,7 @@ class GunNumberInput extends ReactGun {
           onFocus={() =>
             this.setState({
               test: !this.state.test,
-              inputCache: this.state.gunData[this.props.gunProperty],
+              inputCache: value,
             })
           }
           onChange={(e) => {
