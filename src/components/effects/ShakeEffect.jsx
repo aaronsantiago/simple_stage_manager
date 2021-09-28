@@ -40,6 +40,10 @@ class ShakeEffect extends React.Component {
       Date.now() - 100 >
       this.props.data.startTime + this.props.data.duration * 1000
     ) {
+      let panel = window.currentActivePanels[this.props.data.key];
+      if (panel) {
+        panel.setState({active: false});
+      }
       return null;
     }
     return (
