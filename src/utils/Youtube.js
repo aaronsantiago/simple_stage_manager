@@ -6,7 +6,7 @@ function createPanel(gun) {
     type: "youtube",
     title: "New Youtube Effect",
     url: "",
-    hidden: false,
+    hidden: true,
     key: id,
     deleted: false,
     volume: 1,
