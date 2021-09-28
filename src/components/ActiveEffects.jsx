@@ -11,6 +11,7 @@ import ViewerInfo from "./ViewerInfo";
 
 class ActiveEffects extends ReactGunMap {
   render() {
+    window.currentActiveEffects = {};
     return (
       <Box
         p={4}
@@ -43,11 +44,14 @@ class ActiveEffects extends ReactGunMap {
             }}
             gap={4}
           >
-          <ViewerInfo roomId={this.roomId} gun={this.gunBase}/>
+            <ViewerInfo roomId={this.roomId} gun={this.gunBase} />
             {map(
-              sortBy(this.state.gunData, (o) => o.timestamp),
+              sortBy(this.state.gunData, (o) =>
+                o?.timestamp ? -o.timestamp : null
+              ),
               (el) => {
                 if (el === null || el.deleted === true) return;
+                window.currentActiveEffects[el.key] = true;
                 let key = "activefx" + el.key;
                 let defaultProps = {
                   key: key,

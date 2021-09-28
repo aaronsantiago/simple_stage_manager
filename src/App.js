@@ -21,6 +21,8 @@ var gun = Gun({
 let gunBase = gun.get("simple_stage_manager");
 
 window.unusedUiIds = [];
+window.currentActiveEffects = {};
+window.currentActivePanels = {};
 
 function App() {
   return (

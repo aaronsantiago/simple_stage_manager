@@ -12,14 +12,17 @@ import GunInput from "../base/GunInput";
 class FadePanel extends React.Component {
   constructor(props) {
     super(props);
-    this.rootGunBase = props.gunBase;
-
+    this.state = { active: false };
     this.activate = this.activate.bind(this);
     this.deleteMe = this.deleteMe.bind(this);
   }
 
+  componentDidMount() {
+    this.setState({active: window.currentActiveEffects[this.props.data.key]});
+  }
+
   activate() {
-    Fade.activateEffect(this.rootGunBase, this.props.data);
+    Fade.activateEffect(this.props.gunBase, this.props.data);
   }
 
   deleteMe() {
@@ -27,7 +30,9 @@ class FadePanel extends React.Component {
   }
 
   render() {
+    window.currentActivePanels[this.props.data.key] = null;
     if (!this.props.data) return null;
+    window.currentActivePanels[this.props.data.key] = this;
     return (
       <Panel
         onClose={this.deleteMe}
@@ -50,16 +55,33 @@ class FadePanel extends React.Component {
             value={this.props.data.title}
           />
         </Box>
-        <Button
-          position="absolute"
-          bottom="0"
-          variant="outline"
-          w="100%"
-          borderRadius="0"
-          onClick={this.activate}
-        >
-          Activate
-        </Button>
+          <ButtonGroup
+            position="absolute"
+            bottom="0"
+            variant="outline"
+            w="100%"
+            isAttached="true"
+          >
+            <Button borderRadius="0" onClick={this.activate} width="100%">
+              Activate
+            </Button>
+            {this.state.active ? (
+              <Button
+                borderRadius="0"
+                borderLeft="1px"
+                onClick={() => {
+                  Fade.stopEffect(
+                    this.props.gunBase
+                      .get("activefx")
+                      .get("activefx" + this.props.data.key)
+                  );
+                }}
+                width="100%"
+              >
+                Deactivate
+              </Button>
+            ) : null}
+          </ButtonGroup>
       </Panel>
     );
   }

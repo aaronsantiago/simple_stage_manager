@@ -37,7 +37,8 @@ function stopEffect(gun) {
   gun
     .get("deleted")
     .put(true);
-}
+    gun.put(null);
+  }
 
 let URLOverlay = {
   createPanel,

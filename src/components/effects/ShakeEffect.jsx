@@ -11,14 +11,23 @@ class ShakeEffect extends React.Component {
     this.state.time = new Date();
     this.stop = this.stop.bind(this);
   }
+  
   componentDidMount() {
     this.update = setInterval(() => {
       this.setState({ time: new Date() });
     }, 16); // every frame (ish)
+    let panel = window.currentActivePanels[this.props.data.key];
+    if (panel) {
+      panel.setState({active: true});
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.update);
+    let panel = window.currentActivePanels[this.props.data.key];
+    if (panel) {
+      panel.setState({active: false});
+    }
   }
 
   stop() {

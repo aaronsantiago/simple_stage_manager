@@ -8,6 +8,7 @@ import {
   StackDivider,
   VStack,
   GridItem,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import GunInput from "../base/GunInput";
 import Panel from "../base/Panel";
@@ -17,14 +18,18 @@ import GunSlider from "../base/GunSlider";
 class YoutubePanel extends React.Component {
   constructor(props) {
     super(props);
-    this.rootGunBase = props.gunBase;
 
+    this.state = { active: false };
     this.play = this.play.bind(this);
     this.deleteMe = this.deleteMe.bind(this);
   }
 
+  componentDidMount() {
+    this.setState({active: window.currentActiveEffects[this.props.data.key]});
+  }
+
   play() {
-    Youtube.activateEffect(this.rootGunBase, this.props.data);
+    Youtube.activateEffect(this.props.gunBase, this.props.data);
   }
 
   deleteMe() {
@@ -32,7 +37,9 @@ class YoutubePanel extends React.Component {
   }
 
   render() {
+    window.currentActivePanels[this.props.data.key] = null;
     if (!this.props.data) return null;
+    window.currentActivePanels[this.props.data.key] = this;
     return (
       <GridItem rowSpan={2} colSpan={1}>
         <Panel
@@ -57,10 +64,7 @@ class YoutubePanel extends React.Component {
               sync={false}
               value={this.props.data.title}
             />
-            <VStack
-              spacing={3.5}
-              align="stretch"
-            >
+            <VStack spacing={3.5} align="stretch">
               <Box>
                 <Text size="xs">Youtube URL</Text>
                 <GunInput
@@ -88,16 +92,33 @@ class YoutubePanel extends React.Component {
               ></GunSlider>
             </VStack>
           </Box>
-          <Button
+          <ButtonGroup
             position="absolute"
             bottom="0"
             variant="outline"
             w="100%"
-            borderRadius="0"
-            onClick={this.play}
+            isAttached="true"
           >
-            Play
-          </Button>
+            <Button borderRadius="0" onClick={this.play} width="100%">
+              Activate
+            </Button>
+            {this.state.active ? (
+              <Button
+                borderRadius="0"
+                borderLeft="1px"
+                onClick={() => {
+                  Youtube.stopEffect(
+                    this.props.gunBase
+                      .get("activefx")
+                      .get("activefx" + this.props.data.key)
+                  );
+                }}
+                width="100%"
+              >
+                Deactivate
+              </Button>
+            ) : null}
+          </ButtonGroup>
         </Panel>
       </GridItem>
     );

@@ -39,6 +39,7 @@ function stopEffect(gun) {
   gun
     .get("stopped")
     .put(true);
+  gun.put(null);
 }
 
 let Youtube = {

@@ -27,9 +27,8 @@ function activateEffect(gun, data) {
 }
 
 function stopEffect(gun) {
-  gun
-    .get("deleted")
-    .put(true);
+  gun.get("deleted").put(true);
+  gun.put(null);
 }
 
 let Fade = {

@@ -17,14 +17,17 @@ class ShakePanel extends React.Component {
   constructor(props) {
     super(props);
 
-    this.rootGunBase = props.gunBase;
-
+    this.state = { active: false };
     this.activate = this.activate.bind(this);
     this.deleteMe = this.deleteMe.bind(this);
   }
 
+  componentDidMount() {
+    this.setState({active: window.currentActiveEffects[this.props.data.key]});
+  }
+
   activate() {
-    Shake.activateEffect(this.rootGunBase, this.props.data);
+    Shake.activateEffect(this.props.gunBase, this.props.data);
   }
 
   deleteMe() {
@@ -32,7 +35,9 @@ class ShakePanel extends React.Component {
   }
 
   render() {
+    window.currentActivePanels[this.props.data.key] = null;
     if (!this.props.data) return null;
+    window.currentActivePanels[this.props.data.key] = this;
     return (
       <GridItem rowSpan={2} colSpan={1}>
         <Panel
@@ -76,16 +81,33 @@ class ShakePanel extends React.Component {
               />
             </VStack>
           </Box>
-          <Button
+          <ButtonGroup
             position="absolute"
             bottom="0"
             variant="outline"
             w="100%"
-            borderRadius="0"
-            onClick={this.activate}
+            isAttached="true"
           >
-            Activate
-          </Button>
+            <Button borderRadius="0" onClick={this.activate} width="100%">
+              Activate
+            </Button>
+            {this.state.active ? (
+              <Button
+                borderRadius="0"
+                borderLeft="1px"
+                onClick={() => {
+                  Shake.stopEffect(
+                    this.props.gunBase
+                      .get("activefx")
+                      .get("activefx" + this.props.data.key)
+                  );
+                }}
+                width="100%"
+              >
+                Deactivate
+              </Button>
+            ) : null}
+          </ButtonGroup>
         </Panel>
       </GridItem>
     );

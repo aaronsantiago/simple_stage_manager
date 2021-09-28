@@ -12,6 +12,19 @@ class YoutubeEffect extends React.Component {
 
     this.stop = this.stop.bind(this);
   }
+  
+  componentDidMount(){
+    let panel = window.currentActivePanels[this.props.data.key];
+    if (panel) {
+      panel.setState({active: true});
+    }
+  }
+  componentWillUnmount(){
+    let panel = window.currentActivePanels[this.props.data.key];
+    if (panel) {
+      panel.setState({active: false});
+    }
+  }
 
   stop() {
     Youtube.stopEffect(this.props.gun);
