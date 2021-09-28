@@ -112,7 +112,7 @@ class UIPanels extends ReactGunMap {
               </Box>
             </Panel>
             {map(
-              sortBy(this.state.gunData, (o) => o?.timestamp),
+              sortBy(this.state.gunData, (o) => (o?.timestamp ? -o.timestamp : null)),
               (el) => {
                 if (el === null || el.deleted === true) return;
                 let key = el.key;
