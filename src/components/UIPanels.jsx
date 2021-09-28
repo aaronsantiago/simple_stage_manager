@@ -9,28 +9,12 @@ import HideMiroControlsPanel from "./panels/HideMiroControlsPanel";
 import {
   Box,
   Grid,
-  Center,
-  Button,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuList,
-  MenuItem,
-  ChevronDownIcon,
   Heading,
 } from "@chakra-ui/react";
-import Youtube from "../utils/Youtube";
-import URLOverlay from "../utils/URLOverlay";
-import Fade from "../utils/Fade";
-import Shake from "../utils/Shake";
-import HideMiroControls from "../utils/HideMiroControls";
-import Panel from "./base/Panel";
+import SimpleStageManager from "./SimpleStageManager";
+import SpacerPanel from "./panels/SpacerPanel";
 
 class UIPanels extends ReactGunMap {
-  constructor(props) {
-    super(props);
-    this.rootGunBase = props.gunBase;
-  }
 
   componentDidUpdate() {
     window.unusedUiIds = [];
@@ -59,59 +43,7 @@ class UIPanels extends ReactGunMap {
             }}
             gap={4}
           >
-            <Panel
-              p={4}
-              color="#FFFC"
-              borderColor="white"
-              heading="simple stage manager"
-              bg="#9F7AAFAA"
-            >
-              <Box p={3}>
-                <Center>
-                  <Menu>
-                    <Button variant="unstyled" border="1px" p="0">
-                      <MenuButton
-                        w="100%"
-                        h="100%"
-                        p="4"
-                      >
-                        Create new panel
-                      </MenuButton>
-                    </Button>
-                    <MenuList color="black">
-                      <MenuItem
-                        onClick={() => Youtube.createPanel(this.rootGunBase)}
-                      >
-                        Youtube
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => URLOverlay.createPanel(this.rootGunBase)}
-                      >
-                        URL Overlay
-                      </MenuItem>
-                      <MenuDivider />
-                      <MenuItem
-                        onClick={() => Fade.createPanel(this.rootGunBase)}
-                      >
-                        Fade
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => Shake.createPanel(this.rootGunBase)}
-                      >
-                        Shake
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() =>
-                          HideMiroControls.createPanel(this.rootGunBase)
-                        }
-                      >
-                        Hide Miro Controls
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>
-                </Center>
-              </Box>
-            </Panel>
+            <SimpleStageManager gun={this.props.gunBase}/>
             {map(
               sortedData,
               (el, i) => {
@@ -154,6 +86,8 @@ class UIPanels extends ReactGunMap {
                     return <ShakePanel {...defaultProps} />;
                   case "miro-hide":
                     return <HideMiroControlsPanel {...defaultProps} />;
+                  case "spacer":
+                    return <SpacerPanel {...defaultProps} />;
                 }
                 return;
               }

@@ -41,6 +41,8 @@ class URLOverlayPanel extends React.Component {
           heading="URL Overlay:"
           position="relative"
           pb="10"
+          onMoveUp={this.props.onMoveUp}
+          onMoveDown={this.props.onMoveDown}
         >
           <Box px={3} pb={2}>
             <GunInput
@@ -54,8 +56,6 @@ class URLOverlayPanel extends React.Component {
               gunProperty="title"
               sync={false}
               value={this.props.data.title}
-              onMoveUp={this.props.onMoveUp}
-              onMoveDown={this.props.onMoveDown}
             />
             <VStack spacing={3.5} align="stretch">
               <Box>
