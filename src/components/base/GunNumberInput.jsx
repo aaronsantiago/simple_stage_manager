@@ -6,7 +6,7 @@ class GunNumberInput extends ReactGun {
   constructor(props) {
     super(props, props.sync == undefined ? true : props.sync);
 
-    this.state.test = false;
+    this.state.focusToggle = false;
     this.inputRef = React.createRef();
     this.state.inputCache = "";
   }
@@ -16,10 +16,9 @@ class GunNumberInput extends ReactGun {
   }
 
   componentDidUpdate() {
-    
     if (this.currentlyFocused())
-      this.inputRef.current.selectionStart = this.inputRef.current.selectionEnd =
-        this.cursor;
+      this.inputRef.current.selectionStart =
+        this.inputRef.current.selectionEnd = this.cursor;
   }
 
   render() {
@@ -32,26 +31,26 @@ class GunNumberInput extends ReactGun {
         <Input
           size="xs"
           value={
-            document.activeElement === this.inputRef.current
-              ? this.state.inputCache
-              : value
+            document.activeElement === this.inputRef.current ? null : value
           }
           step={0.2}
           ref={this.inputRef}
           textAlign="right"
           onFocus={() =>
             this.setState({
-              test: !this.state.test,
-              inputCache: value,
+              focusToggle: !this.state.focusToggle,
             })
           }
-          onChange={(e) => {
-            this.cursor = e.target.selectionStart;
-            this.state.inputCache = e.target.value;
+          onBlur={(e) => {
             if (!isNaN(parseFloat(e.target.value)))
               this.props.gun
                 .get(this.props.gunProperty)
                 .put(parseFloat(e.target.value));
+          }}
+          onKeyUp={(event) => {
+            if (event.key === "Enter") {
+              event.target.blur();
+            }
           }}
         ></Input>
       </HStack>

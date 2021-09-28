@@ -5,8 +5,8 @@ import ReactGun from "./ReactGun";
 class GunInput extends ReactGun {
   constructor(props) {
     super(props, props.sync == undefined ? true : props.sync);
-
-    this.state.test = false;
+    console.log("recreated");
+    this.state.focusToggle = false;
     this.inputRef = React.createRef();
     this.state.inputCache = "";
   }
@@ -16,10 +16,9 @@ class GunInput extends ReactGun {
   }
 
   componentDidUpdate() {
-    
-    if (this.currentlyFocused())
-      this.inputRef.current.selectionStart = this.inputRef.current.selectionEnd =
-        this.cursor;
+    // if (this.currentlyFocused())
+    //   this.inputRef.current.selectionStart = this.inputRef.current.selectionEnd =
+    //     this.cursor;
   }
 
   render() {
@@ -32,21 +31,19 @@ class GunInput extends ReactGun {
         ref={this.inputRef}
         onFocus={() =>
           this.setState({
-            test: !this.state.test,
-            inputCache: value,
+            focusToggle: !this.state.focusToggle,
           })
         }
-        onChange={(e) => {
-          this.cursor = e.target.selectionStart;
-          this.state.inputCache = e.target.value;
+        onBlur={(e) => {
           this.props.gun.get(this.props.gunProperty).put(e.target.value);
         }}
         {...this.props}
-        value={
-          this.currentlyFocused()
-            ? this.state.inputCache
-            : value
-        }
+        value={this.currentlyFocused() ? null : value}
+        onKeyUp={(event) => {
+          if (event.key === "Enter") {
+            event.target.blur();
+          }
+        }}
       />
     );
   }
