@@ -34,7 +34,7 @@ class UIPanels extends ReactGunMap {
         <Heading fontSize="5em" color="#FFF9"position="absolute" bottom="3" right="6" textAlign="right">
           control panels
         </Heading>
-        <Box w="100%" h="100%" p={5} overflow="scroll">
+        <Box w="100%" h="100%" p={5} overflowY="scroll">
           <Grid
             templateColumns={{
               base: "repeat(1, 1fr)",

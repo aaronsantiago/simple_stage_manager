@@ -33,7 +33,7 @@ class ActiveEffects extends ReactGunMap {
         >
           active effects
         </Heading>
-        <Box h="100%" overflow="scroll">
+        <Box h="100%" overflowY="scroll">
           <Grid
             templateColumns={{
               base: "repeat(1, 1fr)",
