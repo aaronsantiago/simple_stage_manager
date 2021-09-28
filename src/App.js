@@ -7,14 +7,20 @@ import Gun from "gun/gun";
 import { chakraTheme } from "./utils/utils";
 import Viewer from "./pages/Viewer";
 import Home from "./pages/Home";
-require("gun/lib/open.js");
+const radix = require('gun/lib/radix');
+const radisk = require('gun/lib/radisk');
+const store = require('gun/lib/store');
+const rindexed = require('gun/lib/rindexed');
+const webrtc = require('gun/lib/webrtc');
 
 var gun = Gun({
   peers: ["https://aarondotwork-gun-server.herokuapp.com/gun"],
+  radisk: radisk || false,
+  localStorage: false
 });
 let gunBase = gun.get("simple_stage_manager");
+
 window.unusedUiIds = [];
-window.unusedAeIds = [];
 
 function App() {
   return (
