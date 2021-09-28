@@ -5,6 +5,7 @@ import ReactGunMap from "./base/ReactGunMap";
 import URLOverlayPanel from "./panels/URLOverlayPanel";
 import FadePanel from "./panels/FadePanel";
 import ShakePanel from "./panels/ShakePanel";
+import NotesPanel from "./panels/NotesPanel";
 import HideMiroControlsPanel from "./panels/HideMiroControlsPanel";
 import {
   Box,
@@ -88,6 +89,8 @@ class UIPanels extends ReactGunMap {
                     return <HideMiroControlsPanel {...defaultProps} />;
                   case "spacer":
                     return <SpacerPanel {...defaultProps} />;
+                  case "notes":
+                    return <NotesPanel {...defaultProps} />;
                 }
                 return;
               }

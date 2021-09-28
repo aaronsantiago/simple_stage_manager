@@ -1,8 +1,8 @@
 import React from "react";
-import { Input } from "@chakra-ui/react";
+import { Textarea } from "@chakra-ui/react";
 import ReactGun from "./ReactGun";
 
-class GunInput extends ReactGun {
+class GunTextArea extends ReactGun {
   constructor(props) {
     super(props, props.sync == undefined ? true : props.sync);
     this.state.focusToggle = false;
@@ -25,8 +25,7 @@ class GunInput extends ReactGun {
     let value = this.props.value;
     if (value == null) value = this.state.gunData[this.props.gunProperty];
     return (
-      <Input
-        textOverflow="ellipsis"
+      <Textarea
         ref={this.inputRef}
         onFocus={() =>
           this.setState({
@@ -34,6 +33,7 @@ class GunInput extends ReactGun {
           })
         }
         onBlur={(e) => {
+          console.log(e.target)
           this.props.gun.get(this.props.gunProperty).put(e.target.value);
         }}
         {...this.props}
@@ -48,4 +48,4 @@ class GunInput extends ReactGun {
   }
 }
 
-export default GunInput;
+export default GunTextArea;

@@ -16,6 +16,7 @@ import {
   MenuItem,
 } from "@chakra-ui/react";
 import Spacer from "../utils/Spacer";
+import Notes from "../utils/Notes";
 
 function SimpleStageManager({gun}) {
   return <Panel
@@ -57,6 +58,11 @@ function SimpleStageManager({gun}) {
               onClick={() => Spacer.createPanel(gun)}
             >
               Panel Spacer
+            </MenuItem>
+            <MenuItem
+              onClick={() => Notes.createPanel(gun)}
+            >
+              Notes
             </MenuItem>
           </MenuList>
         </Menu>
