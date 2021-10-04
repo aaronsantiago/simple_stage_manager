@@ -10,7 +10,8 @@ class ViewerYoutubeEffect extends ReactGunMap {
   constructor(props) {
     super(props);
     this.ytMap = {};
-    this.state.videoLoaded = false;
+    this.state.videoLoadedToggle = false;
+    this.state.videoFinished = false;
   }
 
   render() {
@@ -36,7 +37,10 @@ class ViewerYoutubeEffect extends ReactGunMap {
               return;
             }
 
-            if (this.ytMap[data.key] != null && this.ytMap[data.key].h != null) {
+            if (
+              this.ytMap[data.key] != null &&
+              this.ytMap[data.key].h != null
+            ) {
               this.ytMap[data.key].setVolume(Math.floor(data.volume * 100));
             }
             return (
@@ -58,25 +62,35 @@ class ViewerYoutubeEffect extends ReactGunMap {
                     }}
                   ></Box>
                 )}
-                <YouTube
-                  containerClassName={data.hidden ? "bingus" : "ytPlayer"}
-                  key={data.key}
-                  opts={{
-                    width: "100%",
-                    height: "100%",
-                    playerVars: { autoplay: 1, controls: 0 },
-                  }}
-                  videoId={getVideoId(data.url).id}
-                  onReady={
-                    (e) => {
+                {this.state.videoFinished ? null : (
+                  <YouTube
+                    containerClassName={data.hidden ? "bingus" : "ytPlayer"}
+                    key={data.key}
+                    opts={{
+                      width: "100%",
+                      height: "100%",
+                      playerVars: { autoplay: 1, controls: 0 },
+                    }}
+                    videoId={getVideoId(data.url).id}
+                    onReady={(e) => {
                       this.ytMap[data.key] = e.target;
                       this.setState({
                         ...this.gunData,
-                        videoLoaded: !this.state.videoLoaded,
+                        videoFinished: this.state.videoFinished,
+                        videoLoadedToggle: !this.state.videoLoadedToggle,
                       });
-                    }
-                  }
-                />
+                    }}
+                    onStateChange={(e) => {
+                      if (e.data === 0) {
+                        this.setState({
+                          ...this.gunData,
+                          videoFinished: true,
+                          videoLoadedToggle: !this.state.videoLoadedToggle,
+                        });
+                      }
+                    }}
+                  />
+                )}
               </Box>
             );
           }
