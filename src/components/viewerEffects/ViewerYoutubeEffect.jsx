@@ -36,7 +36,7 @@ class ViewerYoutubeEffect extends ReactGunMap {
               return;
             }
 
-            if (this.ytMap[data.key] != null) {
+            if (this.ytMap[data.key] != null && this.ytMap[data.key].h != null) {
               this.ytMap[data.key].setVolume(Math.floor(data.volume * 100));
             }
             return (
@@ -75,10 +75,6 @@ class ViewerYoutubeEffect extends ReactGunMap {
                         videoLoaded: !this.state.videoLoaded,
                       });
                     }
-                    // function onPlayerReady(event) {
-                    //   event.target.setVolume(100);
-                    //   event.target.playVideo();
-                    // }
                   }
                 />
               </Box>
