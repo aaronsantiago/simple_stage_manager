@@ -18,7 +18,7 @@ var gun = Gun({
   radisk: radisk || false,
   localStorage: false
 });
-let gunBase = gun.get("simple_stage_manager");
+let gunBase = gun.get("simple_stage_manager_2");
 
 window.unusedUiIds = [];
 window.currentActiveEffects = {};

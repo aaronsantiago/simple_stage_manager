@@ -1,5 +1,5 @@
 import React from "react";
-
+let syncCount = 0;
 class ReactGun extends React.Component {
   constructor(props, sync=true) {
     super(props);
@@ -13,6 +13,7 @@ class ReactGun extends React.Component {
   componentDidMount() {
     if (!this.sync) return;
     this.gunBase.on((property, _, __, ev) => {
+      console.log(Date.now() + " gun sync " + syncCount++ + " " + JSON.stringify(property));
       this._gunListener = ev;
       if (this._unmounted) {
         this._gunListener.off();
