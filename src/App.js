@@ -14,7 +14,7 @@ const rindexed = require('gun/lib/rindexed');
 const webrtc = require('gun/lib/webrtc');
 
 var gun = Gun({
-  peers: ["https://aarondotwork-gun-server.herokuapp.com/gun"],
+  peers: ["https://gun-manhattan.herokuapp.com/gun"],
   radisk: radisk || false,
   localStorage: false
 });
