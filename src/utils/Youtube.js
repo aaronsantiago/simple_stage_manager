@@ -1,18 +1,12 @@
-import { uiId } from "./utils";
+import { createBasePanel } from "./utils";
 
-function createPanel(gun) {
-  let id = uiId();
-  let data = {
-    type: "youtube",
-    title: "New Youtube Effect",
-    url: "",
-    hidden: true,
-    key: id,
-    deleted: false,
-    volume: 1,
-    timestamp: Date.now(),
-  };
-  gun.get("ui").get(id).put(data, console.log);
+function createPanel(gun, sortedData) {
+  let data = createBasePanel("youtube", "New Youtube Effect", sortedData);
+  
+  data.url = "";
+  data.hidden = true;
+  data.volume = 1;
+  gun.get("ui").get(data.id).put(data, console.log);
 }
 
 function activateEffect(gun, data) {

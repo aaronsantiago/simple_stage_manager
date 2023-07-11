@@ -1,17 +1,10 @@
-import { uiId } from "./utils";
+import { createBasePanel } from "./utils";
 
-function createPanel(gun) {
-  let id = uiId();
-  let data = {
-    type: "shake",
-    title: "New Shake Effect",
-    key: id,
-    deleted: false,
-    duration: 3,
-    strength: 1,
-    timestamp: Date.now(),
-  };
-  gun.get("ui").get(id).put(data, console.log);
+function createPanel(gun, sortedData) {
+  let data = createBasePanel("shake", "New Shake Effect", sortedData);
+  data.duration = 3;
+  data.strength = 1;
+  gun.get("ui").get(data.id).put(data, console.log);
 }
 
 function activateEffect(gun, data) {

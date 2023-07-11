@@ -1,16 +1,12 @@
-import { uiId } from "./utils";
 
-function createPanel(gun) {
-  let id = uiId();
-  let data = {
-    type: "changebaseurl",
-    title: "New Change Base URL Effect",
-    url: "",
-    key: id,
-    deleted: false,
-    timestamp: Date.now(),
-  };
-  gun.get("ui").get(id).put(data, console.log);
+import { createBasePanel } from "./utils";
+
+function createPanel(gun, sortedData) {
+  let data = createBasePanel("changebaseurl", "New Change Base URL Effect", sortedData);
+  
+  data.url = "";
+
+  gun.get("ui").get(data.id).put(data, console.log);
 }
 
 function activateEffect(gun, data) {

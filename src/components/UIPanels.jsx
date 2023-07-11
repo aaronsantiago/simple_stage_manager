@@ -28,7 +28,7 @@ class UIPanels extends ReactGunMap {
   }
 
   render() {
-    let sortedData = sortBy(this.state.gunData, (o) => (o?.timestamp ? -o.timestamp : null));
+    let sortedData = sortBy(this.state.gunData, (o) => (o?.sortValue ? o.sortValue : null));
     return (
       <Box bg="none" h="100vh" position="relative">
         <Heading fontSize="5em" color="#FFF9"position="absolute" bottom="3" right="6" textAlign="right">
@@ -45,7 +45,7 @@ class UIPanels extends ReactGunMap {
             }}
             gap={4}
           >
-            <SimpleStageManager gun={this.props.gunBase}/>
+            <SimpleStageManager gun={this.props.gunBase} sortedData={sortedData}/>
             {map(
               sortedData,
               (el, i) => {

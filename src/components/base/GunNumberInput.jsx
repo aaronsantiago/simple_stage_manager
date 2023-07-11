@@ -46,6 +46,7 @@ class GunNumberInput extends ReactGun {
               this.props.gun
                 .get(this.props.gunProperty)
                 .put(parseFloat(e.target.value));
+                console.log("blurred and setting value");
           }}
           onKeyUp={(event) => {
             if (event.key === "Enter") {

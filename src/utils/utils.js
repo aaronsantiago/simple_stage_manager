@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import { getPrevSortValue } from "./reordersort";
 
 function shortUuid() {
   return "xxxxxxxx".replace(/[xy]/g, function (c) {
@@ -53,4 +54,17 @@ const chakraTheme = extendTheme({
   },
 });
 
-export { uuidv4, uiId, shortUuid, chakraTheme };
+let createBasePanel = (type, title, sortedData) => {
+  let id = uiId();
+  let data = {
+    type: type,
+    title: title,
+    key: id,
+    deleted: false,
+    timestamp: Date.now(),
+    sortValue: getPrevSortValue(sortedData[0]?.sortValue || "a"),
+  };
+  return data;
+}
+
+export { uuidv4, uiId, shortUuid, chakraTheme, createBasePanel };

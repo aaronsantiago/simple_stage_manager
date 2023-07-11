@@ -1,15 +1,9 @@
-import { uiId } from "./utils";
+import { createBasePanel } from "./utils";
 
-function createPanel(gun) {
-  let id = uiId();
-  let data = {
-    type: "miro-hide",
-    title: "New Miro Hide Controls Effect",
-    key: id,
-    deleted: false,
-    timestamp: Date.now(),
-  };
-  gun.get("ui").get(id).put(data, console.log);
+function createPanel(gun, sortedData) {
+  let data = createBasePanel("miro-hide", "New Miro Hide Controls Effect", sortedData);
+
+  gun.get("ui").get(data.id).put(data, console.log);
 }
 
 function activateEffect(gun, data) {

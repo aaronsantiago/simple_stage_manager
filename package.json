@@ -12,8 +12,9 @@
     "@testing-library/user-event": "^12.8.3",
     "framer-motion": "^4.1.17",
     "get-video-id": "^3.4.1",
-    "gun": "^0.2020.1235",
+    "gun": "^0.2020.1239",
     "lodash": "^4.17.21",
+    "mudder": "^2.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-github-corner": "^2.5.0",
@@ -23,7 +24,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
