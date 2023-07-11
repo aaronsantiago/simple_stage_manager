@@ -4,7 +4,7 @@ function createPanel(gun, sortedData) {
   let data = createBasePanel("shake", "New Shake Effect", sortedData);
   data.duration = 3;
   data.strength = 1;
-  gun.get("ui").get(data.id).put(data, console.log);
+  gun.get("ui").get(data.key).put(data, console.log);
 }
 
 function activateEffect(gun, data) {

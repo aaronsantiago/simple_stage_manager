@@ -7,7 +7,7 @@ function createPanel(gun, sortedData) {
   data.hidden = false;
   data.clickthrough = false;
 
-  gun.get("ui").get(data.id).put(data, console.log);
+  gun.get("ui").get(data.key).put(data, console.log);
 }
 
 function activateEffect(gun, data) {

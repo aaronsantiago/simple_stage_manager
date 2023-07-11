@@ -6,7 +6,7 @@ function createPanel(gun, sortedData) {
   
   data.url = "";
 
-  gun.get("ui").get(data.id).put(data, console.log);
+  gun.get("ui").get(data.key).put(data, console.log);
 }
 
 function activateEffect(gun, data) {
