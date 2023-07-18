@@ -67,8 +67,8 @@ export const Card = ({ id, text, index, moveCard, commitChange }) => {
     end: (item, monitor) => {
       console.log("end drag");
       const dropResult = monitor.getDropResult()
-      if (item && dropResult) {
-        commitChange(item, dropResult);
+      if (item) {
+        commitChange(item);
       }
     }
   })

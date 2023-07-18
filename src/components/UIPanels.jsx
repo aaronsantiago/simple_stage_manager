@@ -19,6 +19,12 @@ import { getNumberBetween } from "../utils/reordersort";
 import useGun from "./base/UseGun";
 import useGunMap from "./base/UseGunMap";
 
+import { useCallback } from "react";
+import { useState } from "react";
+import { cloneDeep } from "lodash";
+import { useEffect } from "react";
+import update from 'immutability-helper';
+
 function UIPanels({gun, gunBase, ...props}) {
 
   let gunData = useGunMap(gun, true);
@@ -30,7 +36,41 @@ function UIPanels({gun, gunBase, ...props}) {
     }
   });
   
-  let sortedData = sortBy(gunData, (o) => (o?.sortValue ? o.sortValue : null));
+  const [sortedData, setSortedData] = useState([]);
+  useEffect(() => {
+    let sorted = cloneDeep(gunData);
+    sorted = sortBy(sorted, (o) => (o?.sortValue ? o.sortValue : null));
+    setSortedData(sorted);
+  }, [gunData]);
+
+
+  const moveCard = useCallback((dragIndex, hoverIndex) => {
+    setSortedData((prevCards) =>
+      update(prevCards, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevCards[dragIndex]],
+        ],
+      }),
+    )
+  }, [])
+
+  const commitChange = useCallback((item) => {
+    let prev = sortedData[item.index-1];
+    let prevSortValue = "";
+    if (prev) {
+      prevSortValue = prev.sortValue;
+    }
+    let next = sortedData[item.index+1];
+    let nextSortValue = "";
+    if (next) {
+      nextSortValue = next.sortValue;
+    }
+    gun.get(item.id).get("sortValue").put(
+      getNumberBetween(prevSortValue, nextSortValue)
+    );
+  }, [sortedData, gun]);
+
   return (
     <Box bg="none" h="100vh" position="relative">
       <Heading fontSize="5em" color="#FFF9"position="absolute" bottom="3" right="6" textAlign="right">
@@ -58,52 +98,56 @@ function UIPanels({gun, gunBase, ...props}) {
                 gun: gun.get(key),
                 gunBase: gunBase,
                 data: el,
+                id: key,
+                index: i,
+                moveCard: moveCard,
+                commitChange: commitChange,
               };
-              if (i > 0) {
-                defaultProps.onMoveUp = () => {
-                  let prev = sortedData[i - 1];
-                  let prevSortValue = prev.sortValue;
-                  let prevPrev = sortedData[i - 2];
-                  let prevPrevSortValue = "";
-                  if (prevPrev) {
-                    prevPrevSortValue = prevPrev.sortValue;
-                  }
-                  gun.get(key).get("sortValue").put(
-                    getNumberBetween(prevPrevSortValue, prevSortValue)
-                  );
-                }
-              }
-              if (i < sortedData.length - 1) {
-                defaultProps.onMoveDown = () => {
-                  let next = sortedData[i + 1];
-                  let nextSortValue = next.sortValue;
-                  let nextNext = sortedData[i + 2];
-                  let nextNextSortValue = "";
-                  if (nextNext) {
-                    nextNextSortValue = nextNext.sortValue;
-                  }
-                  gun.get(key).get("sortValue").put(
-                    getNumberBetween(nextSortValue, nextNextSortValue)
-                  );
-                }
-              }
+              // if (i > 0) {
+              //   defaultProps.onMoveUp = () => {
+              //     let prev = sortedData[i - 1];
+              //     let prevSortValue = prev.sortValue;
+              //     let prevPrev = sortedData[i - 2];
+              //     let prevPrevSortValue = "";
+              //     if (prevPrev) {
+              //       prevPrevSortValue = prevPrev.sortValue;
+              //     }
+              //     gun.get(key).get("sortValue").put(
+              //       getNumberBetween(prevPrevSortValue, prevSortValue)
+              //     );
+              //   }
+              // }
+              // if (i < sortedData.length - 1) {
+              //   defaultProps.onMoveDown = () => {
+              //     let next = sortedData[i + 1];
+              //     let nextSortValue = next.sortValue;
+              //     let nextNext = sortedData[i + 2];
+              //     let nextNextSortValue = "";
+              //     if (nextNext) {
+              //       nextNextSortValue = nextNext.sortValue;
+              //     }
+              //     gun.get(key).get("sortValue").put(
+              //       getNumberBetween(nextSortValue, nextNextSortValue)
+              //     );
+              //   }
+              // }
               switch (el.type) {
                 case "youtube":
-                  return <div>{sortedData[i].sortValue}<YoutubePanel {...defaultProps} /></div>;
+                  return <YoutubePanel {...defaultProps} />;
                 case "overlay":
-                  return <div>{sortedData[i].sortValue}<URLOverlayPanel {...defaultProps} /></div>;
+                  return <URLOverlayPanel {...defaultProps} />;
                 case "fade":
-                  return <div>{sortedData[i].sortValue}<FadePanel {...defaultProps} /></div>;
+                  return <FadePanel {...defaultProps} />;
                 case "shake":
-                  return <div>{sortedData[i].sortValue}<ShakePanel {...defaultProps} /></div>;
+                  return <ShakePanel {...defaultProps} />;
                 case "miro-hide":
-                  return <div>{sortedData[i].sortValue}<HideMiroControlsPanel {...defaultProps} /></div>;
+                  return <HideMiroControlsPanel {...defaultProps} />;
                 case "spacer":
-                  return <div>{sortedData[i].sortValue}<SpacerPanel {...defaultProps} /></div>;
+                  return <SpacerPanel {...defaultProps} />;
                 case "notes":
-                  return <div>{sortedData[i].sortValue}<NotesPanel {...defaultProps} /></div>;
+                  return <NotesPanel {...defaultProps} />;
                   case "changebaseurl":
-                    return <div>{sortedData[i].sortValue}<ChangeBaseURLPanel {...defaultProps} /></div>;
+                    return <ChangeBaseURLPanel {...defaultProps} />;
               }
               return;
             }

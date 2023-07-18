@@ -31,10 +31,12 @@ class SpacerPanel extends React.Component {
       }}>
       <Panel
         onClose={this.deleteMe}
-        onMoveUp={this.props.onMoveUp}
-        onMoveDown={this.props.onMoveDown}
         bg="none"
         position="relative"
+        moveCard={this.props.moveCard}
+        commitChange={this.props.commitChange}
+        index={this.props.index}
+        id={this.props.id}
       >
         <Box p={3} >
           <GunInput
