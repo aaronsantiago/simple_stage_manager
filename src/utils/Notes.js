@@ -1,15 +1,9 @@
-import { uiId } from "./utils";
+import { createBasePanel } from "./utils";
 
-function createPanel(gun) {
-  let id = uiId();
-  let data = {
-    type: "notes",
-    title: "New Notes",
-    key: id,
-    deleted: false,
-    timestamp: Date.now(),
-  };
-  gun.get("ui").get(id).put(data, console.log);
+function createPanel(gun, sortedData) {
+  let data = createBasePanel("notes", "New Notes", sortedData);
+  
+  gun.get("ui").get(data.key).put(data, console.log);
 }
 
 let Notes = {

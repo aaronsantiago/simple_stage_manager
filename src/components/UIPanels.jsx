@@ -15,8 +15,151 @@ import {
 import SimpleStageManager from "./SimpleStageManager";
 import SpacerPanel from "./panels/SpacerPanel";
 import ChangeBaseURLPanel from "./panels/ChangeBaseURLPanel";
+import { getNumberBetween } from "../utils/reordersort";
+import useGun from "./base/UseGun";
+import useGunMap from "./base/UseGunMap";
 
-class UIPanels extends ReactGunMap {
+import { useCallback } from "react";
+import { useState } from "react";
+import { cloneDeep } from "lodash";
+import { useEffect } from "react";
+import update from 'immutability-helper';
+
+function UIPanels({gun, gunBase, ...props}) {
+
+  let gunData = useGunMap(gun, true);
+  
+  window.unusedUiIds = [];
+  map(gunData, (el, key) => {
+    if (el == null || el.deleted) {
+      window.unusedUiIds.push(key);
+    }
+  });
+  
+  const [sortedData, setSortedData] = useState([]);
+  useEffect(() => {
+    let sorted = cloneDeep(gunData);
+    sorted = sortBy(sorted, (o) => (o?.sortValue ? o.sortValue : null));
+    setSortedData(sorted);
+  }, [gunData]);
+
+
+  const moveCard = useCallback((dragIndex, hoverIndex) => {
+    setSortedData((prevCards) =>
+      update(prevCards, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevCards[dragIndex]],
+        ],
+      }),
+    )
+  }, [])
+
+  const commitChange = useCallback((item) => {
+    let prev = sortedData[item.index-1];
+    let prevSortValue = "";
+    if (prev) {
+      prevSortValue = prev.sortValue;
+    }
+    let next = sortedData[item.index+1];
+    let nextSortValue = "";
+    if (next) {
+      nextSortValue = next.sortValue;
+    }
+    gun.get(item.id).get("sortValue").put(
+      getNumberBetween(prevSortValue, nextSortValue)
+    );
+  }, [sortedData, gun]);
+
+  return (
+    <Box bg="none" h="100vh" position="relative">
+      <Heading fontSize="5em" color="#FFF9"position="absolute" bottom="3" right="6" textAlign="right">
+        control panels
+      </Heading>
+      <Box w="100%" h="100%" p={5} overflowY="scroll">
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+            xl: "repeat(4, 1fr)",
+          }}
+          gap={4}
+        >
+          <SimpleStageManager gun={gunBase} sortedData={sortedData}/>
+          {map(
+            sortedData,
+            (el, i) => {
+              if (el === null || el.deleted === true) return;
+              let key = el.key;
+              let defaultProps = {
+                key: key,
+                gun: gun.get(key),
+                gunBase: gunBase,
+                data: el,
+                id: key,
+                index: i,
+                moveCard: moveCard,
+                commitChange: commitChange,
+              };
+              // if (i > 0) {
+              //   defaultProps.onMoveUp = () => {
+              //     let prev = sortedData[i - 1];
+              //     let prevSortValue = prev.sortValue;
+              //     let prevPrev = sortedData[i - 2];
+              //     let prevPrevSortValue = "";
+              //     if (prevPrev) {
+              //       prevPrevSortValue = prevPrev.sortValue;
+              //     }
+              //     gun.get(key).get("sortValue").put(
+              //       getNumberBetween(prevPrevSortValue, prevSortValue)
+              //     );
+              //   }
+              // }
+              // if (i < sortedData.length - 1) {
+              //   defaultProps.onMoveDown = () => {
+              //     let next = sortedData[i + 1];
+              //     let nextSortValue = next.sortValue;
+              //     let nextNext = sortedData[i + 2];
+              //     let nextNextSortValue = "";
+              //     if (nextNext) {
+              //       nextNextSortValue = nextNext.sortValue;
+              //     }
+              //     gun.get(key).get("sortValue").put(
+              //       getNumberBetween(nextSortValue, nextNextSortValue)
+              //     );
+              //   }
+              // }
+              switch (el.type) {
+                case "youtube":
+                  return <YoutubePanel {...defaultProps} />;
+                case "overlay":
+                  return <URLOverlayPanel {...defaultProps} />;
+                case "fade":
+                  return <FadePanel {...defaultProps} />;
+                case "shake":
+                  return <ShakePanel {...defaultProps} />;
+                case "miro-hide":
+                  return <HideMiroControlsPanel {...defaultProps} />;
+                case "spacer":
+                  return <SpacerPanel {...defaultProps} />;
+                case "notes":
+                  return <NotesPanel {...defaultProps} />;
+                  case "changebaseurl":
+                    return <ChangeBaseURLPanel {...defaultProps} />;
+              }
+              return;
+            }
+          )}
+        </Grid>
+      </Box>
+    </Box>
+  );
+}
+
+
+class UIPanelsOld extends ReactGunMap {
 
   componentDidUpdate() {
     window.unusedUiIds = [];
@@ -28,7 +171,7 @@ class UIPanels extends ReactGunMap {
   }
 
   render() {
-    let sortedData = sortBy(this.state.gunData, (o) => (o?.timestamp ? -o.timestamp : null));
+    let sortedData = sortBy(this.state.gunData, (o) => (o?.sortValue ? o.sortValue : null));
     return (
       <Box bg="none" h="100vh" position="relative">
         <Heading fontSize="5em" color="#FFF9"position="absolute" bottom="3" right="6" textAlign="right">
@@ -45,7 +188,7 @@ class UIPanels extends ReactGunMap {
             }}
             gap={4}
           >
-            <SimpleStageManager gun={this.props.gunBase}/>
+            <SimpleStageManager gun={this.props.gunBase} sortedData={sortedData}/>
             {map(
               sortedData,
               (el, i) => {
@@ -59,41 +202,49 @@ class UIPanels extends ReactGunMap {
                 };
                 if (i > 0) {
                   defaultProps.onMoveUp = () => {
-                    this.gunBase.get(key).get("timestamp").put(
-                      sortedData[i - 1].timestamp
-                    );
-                    this.gunBase.get(sortedData[i - 1].key).get("timestamp").put(
-                      el.timestamp
+                    let prev = sortedData[i - 1];
+                    let prevSortValue = prev.sortValue;
+                    let prevPrev = sortedData[i - 2];
+                    let prevPrevSortValue = "";
+                    if (prevPrev) {
+                      prevPrevSortValue = prevPrev.sortValue;
+                    }
+                    this.gunBase.get(key).get("sortValue").put(
+                      getNumberBetween(prevPrevSortValue, prevSortValue)
                     );
                   }
                 }
                 if (i < sortedData.length - 1) {
                   defaultProps.onMoveDown = () => {
-                    this.gunBase.get(key).get("timestamp").put(
-                      sortedData[i + 1].timestamp
-                    );
-                    this.gunBase.get(sortedData[i + 1].key).get("timestamp").put(
-                      el.timestamp
+                    let next = sortedData[i + 1];
+                    let nextSortValue = next.sortValue;
+                    let nextNext = sortedData[i + 2];
+                    let nextNextSortValue = "";
+                    if (nextNext) {
+                      nextNextSortValue = nextNext.sortValue;
+                    }
+                    this.gunBase.get(key).get("sortValue").put(
+                      getNumberBetween(nextSortValue, nextNextSortValue)
                     );
                   }
                 }
                 switch (el.type) {
                   case "youtube":
-                    return <YoutubePanel {...defaultProps} />;
+                    return <div>{sortedData[i].sortValue}<YoutubePanel {...defaultProps} /></div>;
                   case "overlay":
-                    return <URLOverlayPanel {...defaultProps} />;
+                    return <div>{sortedData[i].sortValue}<URLOverlayPanel {...defaultProps} /></div>;
                   case "fade":
-                    return <FadePanel {...defaultProps} />;
+                    return <div>{sortedData[i].sortValue}<FadePanel {...defaultProps} /></div>;
                   case "shake":
-                    return <ShakePanel {...defaultProps} />;
+                    return <div>{sortedData[i].sortValue}<ShakePanel {...defaultProps} /></div>;
                   case "miro-hide":
-                    return <HideMiroControlsPanel {...defaultProps} />;
+                    return <div>{sortedData[i].sortValue}<HideMiroControlsPanel {...defaultProps} /></div>;
                   case "spacer":
-                    return <SpacerPanel {...defaultProps} />;
+                    return <div>{sortedData[i].sortValue}<SpacerPanel {...defaultProps} /></div>;
                   case "notes":
-                    return <NotesPanel {...defaultProps} />;
+                    return <div>{sortedData[i].sortValue}<NotesPanel {...defaultProps} /></div>;
                     case "changebaseurl":
-                      return <ChangeBaseURLPanel {...defaultProps} />;
+                      return <div>{sortedData[i].sortValue}<ChangeBaseURLPanel {...defaultProps} /></div>;
                 }
                 return;
               }

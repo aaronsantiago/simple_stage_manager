@@ -36,8 +36,10 @@ class HideMiroControlsPanel extends React.Component {
         bg="green.50"
         heading="Hide Miro Controls:"
         position="relative"
-        onMoveUp={this.props.onMoveUp}
-        onMoveDown={this.props.onMoveDown}
+        moveCard={this.props.moveCard}
+        commitChange={this.props.commitChange}
+        index={this.props.index}
+        id={this.props.id}
       >
         <Box px={3} pb={10}>
           <GunInput
