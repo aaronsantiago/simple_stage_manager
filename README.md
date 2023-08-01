@@ -1,6 +1,6 @@
 simple stage manager
 
-Live here: https://aaron.work/ssm/
+Live here: https://ssm.aaron.work/
 
 The homepage and the manager panel try to explain themselves, but expect a little bit of roughness~
 

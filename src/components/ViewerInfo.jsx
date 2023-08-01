@@ -33,7 +33,7 @@ class ViewerInfo extends ReactGun {
             w="100%"
             onClick={(e) => {
               navigator.clipboard.writeText(
-                "https://aaron.work/ssm#/v/" + this.props.roomId
+                "https://ssm.aaron.work/#/v/" + this.props.roomId
               );
               this.toast({
                 title: "URL copied to clipboard",
@@ -48,24 +48,24 @@ class ViewerInfo extends ReactGun {
             }}
           >
             <Text>Viewer URL:</Text>
-            <Input
+            {/* <Input
               display="inline-block"
               overflow="ellipsis"
               whiteSpace="nowrap"
               size="xs"
               bg="#0005"
               pointerEvents="none"
-              value={"https://aaron.work.com/ssm#/v/" + this.props.roomId}
-            ></Input>
+              value={"https://ssm.aaron.work/#/v/" + this.props.roomId}
+            ></Input> */}
           </Box>
           <Box w="100%">
             <Text size="xs">Base URL</Text>
-            <GunInput
+            {/* <GunInput
               title="url"
               size="xs"
               gun={this.props.gun}
               gunProperty="url"
-            />
+            /> */}
           </Box>
         </VStack>
       </Panel>
