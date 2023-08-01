@@ -48,7 +48,7 @@ class ViewerInfo extends ReactGun {
             }}
           >
             <Text>Viewer URL:</Text>
-            {/* <Input
+            <Input
               display="inline-block"
               overflow="ellipsis"
               whiteSpace="nowrap"
@@ -56,16 +56,16 @@ class ViewerInfo extends ReactGun {
               bg="#0005"
               pointerEvents="none"
               value={"https://ssm.aaron.work/#/v/" + this.props.roomId}
-            ></Input> */}
+            ></Input>
           </Box>
           <Box w="100%">
             <Text size="xs">Base URL</Text>
-            {/* <GunInput
+            <GunInput
               title="url"
               size="xs"
               gun={this.props.gun}
               gunProperty="url"
-            /> */}
+            />
           </Box>
         </VStack>
       </Panel>
